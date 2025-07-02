@@ -1,0 +1,86 @@
+<ion-content [fullscreen]="true" class="inicio-content" menu-close>
+  <!-- Header com logo -->
+  <div class="header-section">
+    <div class="logo-container">
+      <h2 class="logo-text">Agrana</h2>
+      <p class="logo-subtitle">Gestão Financeira</p>
+    </div>
+  </div>
+
+  <!-- Seção principal -->
+  <div class="main-section">
+    <div class="welcome-text">
+      <h1>Cuide do seu <span class="highlight">bolso</span>.</h1>
+      <h1>Aproveite o <span class="highlight">rolê</span> </h1>
+    </div>
+
+    <!-- Carrossel de imagens -->
+    <div class="carousel-container">
+      <swiper-container
+        slides-per-view="1"
+        centered-slides="true"
+        space-between="20"
+        autoplay="true"
+        pagination="true"
+        class="financial-carousel">
+
+        <swiper-slide>
+          <div class="slide-content">
+            <div class="chart-placeholder">
+              <h3>R$7.814</h3>
+              <p>Saldo</p>
+              <div class="chart-line"></div>
+            </div>
+          </div>
+        </swiper-slide>
+
+        <swiper-slide>
+          <div class="slide-content">
+            <div class="chart-placeholder">
+              <h3>R$13.230</h3>
+              <p>Economias</p>
+              <div class="chart-line"></div>
+            </div>
+          </div>
+        </swiper-slide>
+
+        <swiper-slide>
+          <div class="slide-content">
+            <div class="chart-placeholder">
+              <h3>R$5.380</h3>
+              <p>Orçamento Mensal</p>
+              <div class="chart-pie"></div>
+            </div>
+          </div>
+        </swiper-slide>
+
+        <swiper-slide>
+          <div class="slide-content">
+            <div class="chart-placeholder">
+              <h3>R$2.340</h3>
+              <p>Despesas</p>
+              <div class="chart-area"></div>
+            </div>
+          </div>
+        </swiper-slide>
+      </swiper-container>
+    </div>
+
+    <!-- Texto descritivo -->
+    <div class="description-text">
+      <p>"O Agrana faz você pensar sobre suas despesas diárias, semanais e mensais e como elas se encaixam em um panorama financeiro maior e de longo prazo."</p>
+      <p class="author">- Matheus Cardoso</p>
+    </div>
+
+    <!-- Botões -->
+    <div class="button-section">
+      <ion-button expand="block" color="secondary" class="get-started-btn">
+        Começar
+      </ion-button>
+
+      <p class="login-text">
+        Já tem uma conta? <span class="sign-in-link">Entrar</span>
+      </p>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,227 @@
+@import '../../../theme/mixins.scss';
+
+.inicio-content {
+  --background: var(--ion-color-light);
+  padding: 0;
+}
+
+.header-section {
+  @include app-text-center;
+  padding: var(--app-spacing-xxl) var(--app-spacing-md) var(--app-spacing-md) var(--app-spacing-md);
+  background: var(--app-gradient-header);
+}
+
+.logo-container {
+  @include app-section-spacing;
+}
+
+.logo-text {
+  @include app-logo;
+  color: var(--ion-color-primary);
+  font-size: var(--app-font-size-xl);
+}
+
+.logo-subtitle {
+  font-size: var(--app-font-size-md);
+  color: var(--ion-color-secondary);
+  margin: 0;
+  font-weight: 500;
+}
+
+.main-section {
+  @include app-container;
+}
+
+.welcome-text {
+  @include app-text-center;
+  @include app-section-spacing;
+  
+  h1 {
+    @include app-text-title;
+    
+    .highlight {
+      color: var(--ion-color-primary);
+    }
+    
+    .highlight-secondary {
+      color: var(--ion-color-secondary);
+    }
+  }
+}
+
+.carousel-container {
+  @include app-section-spacing;
+  height: 200px;
+}
+
+.financial-carousel {
+  height: 100%;
+  
+  swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.slide-content {
+  @include app-gradient-card;
+  width: 100%;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 32px rgba(var(--ion-color-secondary-rgb), 0.2);
+  background: linear-gradient(135deg, 
+    rgba(var(--ion-color-secondary-rgb), 0.35) 0%, 
+    rgba(var(--ion-color-primary-rgb), 0.35) 100%
+  );
+  background-size: cover;
+  background-position: center;
+}
+
+.chart-placeholder {
+  @include app-text-center;
+  @extend .app-text-white;
+  z-index: 2;
+  position: relative;
+  
+  h3 {
+    font-size: var(--app-font-size-xxl);
+    font-weight: 700;
+    margin: 0 0 var(--app-spacing-xs) 0;
+  }
+  
+  p {
+    font-size: var(--app-font-size-md);
+    opacity: 0.9;
+    margin: 0;
+    font-weight: 500;
+  }
+}
+
+// Chart visualization elements
+.chart-line {
+  position: bottom;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  width: 200px;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 60"><path d="M0,40 Q75,20 150,30 T300,25" stroke="white" stroke-width="2" fill="none" opacity="0.6"/></svg>') no-repeat center bottom;
+  background-size: 100% 100%;
+}
+
+.chart-bar {
+  position: bottom;
+  bottom: 10px;
+  left: 20px;
+  right: 20px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: var(--app-border-radius-sm);
+  
+  &::before {
+    content: '';
+    position: absolute;
+    left: 15%;
+    bottom: 0;
+    width: 15%;
+    height: 75%;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 2px;
+  }
+  
+  &::after {
+    content: '';
+    left: 40%;
+    bottom: 0;
+    width: 15%;
+    height: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 2px;
+  }
+}
+
+.chart-pie {
+  position:relative;
+  left: 40px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: conic-gradient(
+    rgba(255, 255, 255, 0.6) 0deg 120deg, 
+    rgba(255, 255, 255, 0.3) 120deg 240deg, 
+    rgba(255, 255, 255, 0.4) 240deg 360deg
+  );
+}
+
+.chart-area {
+  position: bottom;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  width: 200px;
+  background: linear-gradient(to top, rgba(255, 255, 255, 0.3) 0%, transparent 100%);
+  clip-path: polygon(0% 100%, 20% 80%, 40% 90%, 60% 70%, 80% 85%, 100% 75%, 100% 100%);
+}
+
+.description-text {
+  @include app-text-center;
+  @include app-section-spacing;
+  padding: 0 var(--app-spacing-sm);
+  
+  p {
+    @include app-text-subtitle;
+    font-style: italic;
+    margin: 0 0 var(--app-spacing-sm) 0;
+  }
+  
+  .author {
+    font-size: var(--app-font-size-sm);
+    color: var(--ion-color-secondary);
+    font-weight: 600;
+    font-style: normal;
+  }
+}
+
+.button-section {
+  padding-bottom: var(--app-spacing-xl);
+}
+
+.get-started-btn {
+  --border-radius: var(--app-border-radius-md);
+  --box-shadow: var(--app-shadow-md);
+  height: 56px;
+  font-size: var(--app-font-size-md);
+  font-weight: 600;
+  margin-bottom: var(--app-spacing-md);
+}
+
+.login-text {
+  @include app-text-center;
+  font-size: var(--app-font-size-sm);
+  color: var(--ion-color-medium);
+  margin: 0;
+  
+  .sign-in-link {
+    color: var(--ion-color-secondary);
+    font-weight: 600;
+    cursor: pointer;
+  }
+}
+
+// Swiper customization using theme variables
+swiper-container {
+  --swiper-pagination-color: var(--ion-color-primary);
+  --swiper-pagination-bullet-inactive-color: var(--ion-color-primary-tint);
+  --swiper-pagination-bullet-inactive-opacity: 0.5;
+  --swiper-pagination-bullet-size: 8px;
+  --swiper-pagination-bullet-horizontal-gap: 4px;
+}
+
+.swiper-pagination {
+  display: none !important;
+}

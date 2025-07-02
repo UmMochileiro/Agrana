@@ -1,0 +1,94 @@
+// Mixins for reusable styles
+@mixin app-container {
+  padding: 0 var(--app-spacing-md);
+}
+
+@mixin app-section-spacing {
+  margin-bottom: var(--app-spacing-xl);
+}
+
+@mixin app-text-center {
+  text-align: center;
+}
+
+@mixin app-card {
+  background: var(--ion-color-light);
+  border-radius: var(--app-border-radius-lg);
+  box-shadow: var(--app-shadow-md);
+  overflow: hidden;
+}
+
+@mixin app-gradient-card($gradient: var(--app-gradient-green)) {
+  background: $gradient;
+  border-radius: var(--app-border-radius-lg);
+  box-shadow: var(--app-shadow-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+@mixin app-button-primary {
+  --background: var(--ion-color-primary);
+  --background-hover: var(--ion-color-primary-shade);
+  --border-radius: var(--app-border-radius-md);
+  --box-shadow: var(--app-shadow-md);
+  height: 56px;
+  font-size: var(--app-font-size-md);
+  font-weight: 600;
+}
+
+@mixin app-text-title {
+  font-size: var(--app-font-size-xxl);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+  color: var(--ion-color-dark);
+}
+
+@mixin app-text-subtitle {
+  font-size: var(--app-font-size-md);
+  line-height: 1.5;
+  color: var(--ion-color-medium);
+  margin: 0;
+}
+
+@mixin app-logo {
+  font-size: var(--app-font-size-lg);
+  font-weight: 700;
+  color: var(--ion-color-primary);
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+// Utility classes
+.app-container {
+  @include app-container;
+}
+
+.app-section-spacing {
+  @include app-section-spacing;
+}
+
+.app-text-center {
+  @include app-text-center;
+}
+
+.app-card {
+  @include app-card;
+}
+
+.app-highlight-purple {
+  color: var(--ion-color-primary);
+}
+
+.app-highlight-blue {
+  color: var(--ion-color-secondary);
+}
+
+.app-text-white {
+  color: white;
+}
+
+.app-text-muted {
+  color: var(--ion-color-medium);
+  opacity: 0.7;
+}
