@@ -94,7 +94,7 @@ export class FinancialService {
     description: string,
     date?: Date
   ) {
-    const user = this.authService.getCurrentUser();
+    const user = await this.authService.getCurrentUser();
     if (!user) throw new Error('Usuário não autenticado');
 
     const transaction = {

@@ -1,6 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { Firestore, collection, doc, setDoc, getDoc, updateDoc, deleteDoc, onSnapshot, query, where, orderBy, addDoc } from '@angular/fire/firestore';
-import { AuthService } from './auth.service';
 import { Observable, BehaviorSubject } from 'rxjs';
 
 // Validação de segurança
@@ -124,8 +123,7 @@ export interface Recurring {
 export class DatabaseService {
   
   constructor(
-    private firestore: Firestore,
-    private authService: AuthService
+    private firestore: Firestore
   ) {}
 
   // Criar estrutura inicial para um novo usuário
@@ -392,33 +390,6 @@ export class DatabaseService {
 
   // Adicionar transação
   async addTransaction(transaction: Omit<Transaction, 'id' | 'createdAt' | 'updatedAt'>) {
-    // Validar se o usuário está autenticado
-    const currentUser = await this.authService.getCurrentUser();
-    if (!currentUser) {
-      throw new Error('Usuário não autenticado');
-    }
-
-    // Validar se o usuário é dono dos dados
-    validateUserAccess(transaction.userId, currentUser.uid);
-
-    // Validar se a conta pertence ao usuário
-    const accountRef = doc(this.firestore, 'accounts', transaction.accountId);
-    const accountDoc = await getDoc(accountRef);
-    if (!accountDoc.exists()) {
-      throw new Error('Conta não encontrada');
-    }
-    const accountData = accountDoc.data() as Account;
-    validateUserAccess(accountData.userId, currentUser.uid);
-
-    // Validar se a categoria pertence ao usuário
-    const categoryRef = doc(this.firestore, 'categories', transaction.categoryId);
-    const categoryDoc = await getDoc(categoryRef);
-    if (!categoryDoc.exists()) {
-      throw new Error('Categoria não encontrada');
-    }
-    const categoryData = categoryDoc.data() as Category;
-    validateUserAccess(categoryData.userId, currentUser.uid);
-
     // Sanitizar dados
     const sanitizedTransaction = {
       ...transaction,
