@@ -1,0 +1,167 @@
+<ion-content [fullscreen]="true" class="register-content">
+  <!-- Header com gradiente -->
+  <div class="register-header">
+    <div class="header-background"></div>
+    <div class="header-content">
+      <div class="logo-section">
+        <ion-icon name="wallet-outline" class="logo-icon"></ion-icon>
+        <h1>Agrana</h1>
+      </div>
+      <p class="welcome-text">Crie sua conta e comece a gerenciar suas finanças</p>
+    </div>
+  </div>
+
+  <!-- Formulário de Cadastro -->
+  <div class="register-form-container">
+    <ion-card class="register-card">
+      <ion-card-content>
+        <div class="form-header">
+          <h2>Criar Conta</h2>
+          <p class="form-subtitle">Preencha os dados para começar</p>
+        </div>
+
+        <form class="register-form" (ngSubmit)="onRegister()" #registerForm="ngForm">
+          <!-- Nome completo -->
+          <div class="input-group">
+            <ion-item class="custom-item">
+              <ion-label position="floating">Nome Completo</ion-label>
+              <ion-input
+                [(ngModel)]="registerData.fullName"
+                name="fullName"
+                type="text"
+                placeholder="Digite seu nome completo"
+                required
+                #fullName="ngModel">
+              </ion-input>
+              <ion-icon name="person-outline" slot="start" class="input-icon"></ion-icon>
+            </ion-item>
+            <div class="error-message" *ngIf="fullName.invalid && fullName.touched">
+              Nome completo é obrigatório
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="input-group">
+            <ion-item class="custom-item">
+              <ion-label position="floating">Email</ion-label>
+              <ion-input
+                [(ngModel)]="registerData.email"
+                name="email"
+                type="email"
+                placeholder="Digite seu email"
+                required
+                email
+                #email="ngModel">
+              </ion-input>
+              <ion-icon name="mail-outline" slot="start" class="input-icon"></ion-icon>
+            </ion-item>
+            <div class="error-message" *ngIf="email.invalid && email.touched">
+              <span *ngIf="email.errors?.['required']">Email é obrigatório</span>
+              <span *ngIf="email.errors?.['email']">Email deve ser válido</span>
+            </div>
+          </div>
+
+          <!-- Senha -->
+          <div class="input-group">
+            <ion-item class="custom-item">
+              <ion-label position="floating">Senha</ion-label>
+              <ion-input
+                [(ngModel)]="registerData.password"
+                name="password"
+                [type]="showPassword ? 'text' : 'password'"
+                placeholder="Digite sua senha"
+                required
+                minlength="6"
+                #password="ngModel">
+              </ion-input>
+              <ion-icon name="lock-closed-outline" slot="start" class="input-icon"></ion-icon>
+              <ion-button fill="clear" slot="end" (click)="togglePasswordVisibility()">
+                <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
+              </ion-button>
+            </ion-item>
+            <div class="error-message" *ngIf="password.invalid && password.touched">
+              <span *ngIf="password.errors?.['required']">Senha é obrigatória</span>
+              <span *ngIf="password.errors?.['minlength']">Senha deve ter no mínimo 6 caracteres</span>
+            </div>
+          </div>
+
+          <!-- Confirmar Senha -->
+          <div class="input-group">
+            <ion-item class="custom-item">
+              <ion-label position="floating">Confirmar Senha</ion-label>
+              <ion-input
+                [(ngModel)]="registerData.confirmPassword"
+                name="confirmPassword"
+                [type]="showConfirmPassword ? 'text' : 'password'"
+                placeholder="Digite sua senha novamente"
+                required
+                #confirmPassword="ngModel">
+              </ion-input>
+              <ion-icon name="lock-closed-outline" slot="start" class="input-icon"></ion-icon>
+              <ion-button fill="clear" slot="end" (click)="toggleConfirmPasswordVisibility()">
+                <ion-icon [name]="showConfirmPassword ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
+              </ion-button>
+            </ion-item>
+            <div class="error-message" *ngIf="confirmPassword.invalid && confirmPassword.touched">
+              Confirmação de senha é obrigatória
+            </div>
+            <div class="error-message" *ngIf="registerData.password !== registerData.confirmPassword && confirmPassword.touched">
+              As senhas não coincidem
+            </div>
+          </div>
+
+          <!-- Checkbox de termos -->
+          <div class="terms-section">
+            <ion-checkbox 
+              [(ngModel)]="registerData.acceptTerms" 
+              name="acceptTerms" 
+              class="terms-checkbox"
+              #acceptTerms="ngModel">
+            </ion-checkbox>
+            <ion-label class="terms-label">
+              Aceito os <a href="#" class="terms-link">Termos de Uso</a> e 
+              <a href="#" class="terms-link">Política de Privacidade</a>
+            </ion-label>
+          </div>
+
+          <!-- Mensagem de erro geral -->
+          <div class="error-message" *ngIf="errorMessage">
+            {{ errorMessage }}
+          </div>
+
+          <!-- Botão de cadastro -->
+          <ion-button 
+            expand="block" 
+            class="register-button"
+            type="submit"
+            [disabled]="!registerForm.form.valid || !registerData.acceptTerms || isLoading">
+            <ion-spinner name="crescent" *ngIf="isLoading"></ion-spinner>
+            <span *ngIf="!isLoading">Criar Conta</span>
+          </ion-button>
+
+          <!-- Divider -->
+          <div class="divider">
+            <span>ou</span>
+          </div>
+
+          <!-- Botão do Google -->
+          <ion-button 
+            expand="block" 
+            fill="outline" 
+            class="google-button"
+            (click)="registerWithGoogle()">
+            <ion-icon name="logo-google" slot="start"></ion-icon>
+            Cadastrar com Google
+          </ion-button>
+
+          <!-- Link para login -->
+          <div class="login-section">
+            <p>Já tem uma conta? 
+              <a routerLink="/login" class="login-link">Entre aqui</a>
+            </p>
+          </div>
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

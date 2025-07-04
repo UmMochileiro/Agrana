@@ -38,3 +38,23 @@
 
 // Import custom theme mixins and utilities
 @import 'theme/mixins.scss';
+
+// Remover bordas indesejadas globais
+* {
+  box-sizing: border-box;
+}
+
+ion-content {
+  border: none !important;
+  outline: none !important;
+}
+
+ion-card {
+  border: none !important;
+  outline: none !important;
+}
+
+img {
+  border: none !important;
+  outline: none !important;
+}

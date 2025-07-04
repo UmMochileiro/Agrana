@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "agrana-1e39a"
+  },
+  "targets": {
+    "agrana-1e39a": {
+      "hosting": {
+        "agrana": [
+          "agrana-1e39a"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

@@ -1,0 +1,73 @@
+
+
+<ion-content [fullscreen]="true" class="ion-padding" menu-close>
+  <div class="login-container">
+    <div class="logo-container">
+      <img src="assets/icon/icon.png" alt="Agrana Logo" class="logo">
+      <h1>Bem-vindo ao Agrana</h1>
+    </div>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Faça seu Login</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <form (ngSubmit)="login()" #loginForm="ngForm">
+          <ion-item>
+            <ion-label position="stacked">Email</ion-label>
+            <ion-input 
+              type="email" 
+              [(ngModel)]="email"
+              name="email"
+              required
+              placeholder="Digite seu email"
+              [disabled]="isLoading">
+            </ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Senha</ion-label>
+            <ion-input 
+              type="password" 
+              [(ngModel)]="password"
+              name="password"
+              required
+              placeholder="Digite sua senha"
+              [disabled]="isLoading">
+            </ion-input>
+          </ion-item>
+
+          <div class="button-container">
+            <ion-button 
+              expand="block" 
+              type="submit"
+              [disabled]="isLoading || !loginForm.valid"
+              color="secondary">
+              <span *ngIf="!isLoading">Entrar</span>
+              <span *ngIf="isLoading">Entrando...</span>
+            </ion-button>
+
+            <ion-button 
+              expand="block" 
+              fill="outline"
+              routerLink="/register"
+              color="primary">
+              Criar Conta
+            </ion-button>
+          </div>
+        </form>
+
+        <div class="back-to-home">
+          <ion-button 
+            fill="clear" 
+            size="small"
+            routerLink="/inicio"
+            color="medium">
+            Voltar ao Início
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

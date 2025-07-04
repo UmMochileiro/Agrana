@@ -1,5 +1,5 @@
 <ion-content [fullscreen]="true" class="inicio-content" menu-close>
-  <!-- Header com logo -->
+
   <div class="header-section">
     <div class="logo-container">
       <h2 class="logo-text">Agrana</h2>
@@ -74,12 +74,12 @@
 
     <!-- Botões -->
     <div class="button-section">
-      <ion-button expand="block" color="secondary" class="get-started-btn">
-        Começar
+      <ion-button expand="block" color="secondary" class="get-started-btn" routerLink="/login">
+        Entrar
       </ion-button>
 
       <p class="login-text">
-        Já tem uma conta? <span class="sign-in-link">Entrar</span>
+        Não tem uma conta? <span class="sign-in-link" routerLink="/login">Criar agora</span>
       </p>
     </div>
   </div>

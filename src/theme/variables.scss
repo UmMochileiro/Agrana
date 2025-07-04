@@ -1,5 +1,5 @@
 :root {
-	--ion-color-primary: #F4A261;
+	--ion-color-primary: rgb(244, 162, 97);
 	--ion-color-primary-rgb: 244,162,97;
 	--ion-color-primary-contrast: #000000;
 	--ion-color-primary-contrast-rgb: 0,0,0;
@@ -96,6 +96,8 @@
 	--app-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
 	--app-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.1);
 	--app-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.15);
+	--app-shadow-card: 0 4px 20px rgba(0, 0, 0, 0.08);
+	--app-shadow-modal: 0 10px 40px rgba(0, 0, 0, 0.2);
 
 	// Background gradients
 	--app-gradient-header: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);

@@ -1,0 +1,333 @@
+<ion-content [fullscreen]="true" class="dashboard-content">
+  <!-- Header Moderno com Gradiente -->
+  <div class="modern-header">
+    <div class="header-background"></div>
+    <div class="header-content">
+      <div class="user-greeting">
+        <div class="greeting-text">
+          <h1>{{ getGreeting() }} 👋</h1>
+          <h2>{{ userName }}</h2>
+        </div>
+        <div class="user-avatar">
+          <ion-avatar>
+            <img src="https://ionicframework.com/docs/img/demos/avatar.svg" alt="User Avatar">
+          </ion-avatar>
+        </div>
+      </div>
+      <p class="header-subtitle">Gerencie suas finanças de forma inteligente</p>
+    </div>
+  </div>
+
+  <!-- Cards de Saldo Modernos -->
+  <div class="balance-cards-container">
+    <!-- Card Principal de Saldo -->
+    <ion-card class="main-balance-card">
+      <ion-card-content>
+        <div class="balance-header">
+          <div class="balance-icon">
+            <ion-icon name="wallet-outline"></ion-icon>
+          </div>
+          <div class="balance-info">
+            <p class="balance-label">Saldo Total</p>
+            <h1 class="balance-amount">${{ totalBalance.toFixed(2) }}</h1>
+          </div>
+        </div>
+
+        <div class="quick-actions">
+          <ion-button fill="clear" size="small" class="quick-action-btn">
+            <ion-icon name="arrow-up-outline"></ion-icon>
+            <span>Enviar</span>
+          </ion-button>
+          <ion-button fill="clear" size="small" class="quick-action-btn">
+            <ion-icon name="arrow-down-outline"></ion-icon>
+            <span>Receber</span>
+          </ion-button>
+          <ion-button fill="clear" size="small" class="quick-action-btn" (click)="toggleAddTransactionForm()">
+            <ion-icon name="add-outline"></ion-icon>
+            <span>Adicionar</span>
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Mini Cards de Contas Simples e Limpos -->
+    <div class="mini-cards-row">
+      <ion-card class="mini-card checking-card">
+        <ion-card-content>
+          <div class="card-header">
+            <ion-icon name="card-outline"></ion-icon>
+            <span class="card-title">Conta Corrente</span>
+          </div>
+          <div class="card-amount">R$ {{ checking.toFixed(2) }}</div>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card class="mini-card savings-card">
+        <ion-card-content>
+          <div class="card-header">
+            <ion-icon name="trending-up-outline"></ion-icon>
+            <span class="card-title">Poupança</span>
+          </div>
+          <div class="card-amount">R$ {{ savings.toFixed(2) }}</div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+
+  <!-- Card de Despesas Moderno -->
+  <ion-card class="modern-expenses-card">
+    <ion-card-content>
+      <div class="card-header">
+        <div class="header-info">
+          <h3>Despesas do Mês</h3>
+          <div class="amount-container">
+            <h2 class="expenses-amount">-${{ monthlyExpenses.toFixed(2) }}</h2>
+            <div class="trend-indicator positive">
+              <ion-icon name="trending-down-outline"></ion-icon>
+              <span>-12%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="expense-categories">
+        <div class="category-item">
+          <div class="category-header">
+            <div class="category-icon housing">
+              <ion-icon name="home-outline"></ion-icon>
+            </div>
+            <div class="category-info">
+              <span class="category-name">Casa</span>
+              <span class="category-amount">${{ housing.toFixed(2) }}</span>
+            </div>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill housing-progress" [style.width.%]="(housing/monthlyExpenses)*100"></div>
+          </div>
+        </div>
+
+        <div class="category-item">
+          <div class="category-header">
+            <div class="category-icon food">
+              <ion-icon name="restaurant-outline"></ion-icon>
+            </div>
+            <div class="category-info">
+              <span class="category-name">Alimentação</span>
+              <span class="category-amount">${{ food.toFixed(2) }}</span>
+            </div>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill food-progress" [style.width.%]="(food/monthlyExpenses)*100"></div>
+          </div>
+        </div>
+
+        <div class="category-item">
+          <div class="category-header">
+            <div class="category-icon transport">
+              <ion-icon name="car-outline"></ion-icon>
+            </div>
+            <div class="category-info">
+              <span class="category-name">Transporte</span>
+              <span class="category-amount">${{ transportation.toFixed(2) }}</span>
+            </div>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill transport-progress" [style.width.%]="(transportation/monthlyExpenses)*100"></div>
+          </div>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Card de Meta de Poupança Moderno -->
+  <ion-card class="savings-goal-card">
+    <ion-card-content>
+      <div class="savings-header">
+        <div class="savings-icon">
+          <ion-icon name="trending-up"></ion-icon>
+        </div>
+        <div class="savings-title">
+          <h3>Meta de Poupança</h3>
+          <p class="savings-subtitle">Vacation Fund</p>
+        </div>
+        <div class="savings-menu">
+          <ion-button fill="clear" size="small" class="menu-btn">
+            <ion-icon name="ellipsis-horizontal"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+
+      <div class="savings-progress-section">
+        <div class="savings-amounts">
+          <div class="current-amount">
+            <span class="amount-value">${{ savingsProgress.toFixed(2) }}</span>
+            <span class="amount-label">Atual</span>
+          </div>
+          <div class="target-amount">
+            <span class="amount-value">${{ savingsGoal.toFixed(2) }}</span>
+            <span class="amount-label">Meta</span>
+          </div>
+        </div>
+        
+        <div class="progress-container">
+          <div class="progress-bar-modern">
+            <div class="progress-track">            <div class="progress-fill" [style.width.%]="calculateSavingsPercentage()"></div>
+            <div class="progress-dot" [style.left.%]="calculateSavingsPercentage()"></div>
+            </div>
+          </div>
+          <div class="progress-percentage">
+            <span class="percentage-text">{{ getSavingsPercentageFormatted() }}%</span>
+            <span class="percentage-label">completo</span>
+          </div>
+        </div>
+        
+        <div class="savings-actions">
+          <ion-button fill="solid" size="small" class="add-funds-btn">
+            <ion-icon name="add" slot="start"></ion-icon>
+            Adicionar Fundos
+          </ion-button>
+          <ion-button fill="outline" size="small" class="view-goals-btn">
+            <ion-icon name="eye" slot="start"></ion-icon>
+            Ver Metas
+          </ion-button>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Card de Transações dos Últimos 7 Dias -->
+  <ion-card class="transactions-card">
+    <ion-card-content>
+      <h3>Transações dos Últimos 7 Dias</h3>
+
+      <div class="transaction-list">
+        <div class="transaction-item" *ngFor="let transaction of recentTransactions">
+          <div class="transaction-icon">
+            <ion-icon [name]="getTransactionIcon(transaction)"></ion-icon>
+          </div>
+          <div class="transaction-details">
+            <span class="transaction-name">{{ transaction.description }}</span>
+            <span class="transaction-date">{{ transaction.date | date:'dd/MM' }}</span>
+          </div>
+          <span class="transaction-amount" [class.positive]="transaction.amount > 0" [class.negative]="transaction.amount < 0">
+            {{ transaction.amount > 0 ? '+' : '' }}R${{ getAbsoluteValue(transaction.amount).toFixed(2) }}
+          </span>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Card para Gerenciar Finanças -->
+  <ion-card class="add-transaction-card">
+    <ion-card-content>
+      <div class="add-transaction-header">
+        <h3>Gerenciar Finanças</h3>
+        <p class="subtitle">Registre suas entradas e saídas de dinheiro</p>
+      </div>
+
+      <div class="transaction-buttons">
+        <ion-button expand="block" fill="solid" color="success" (click)="openTransactionForm('entrada')" class="transaction-btn">
+          <ion-icon name="arrow-down-outline" slot="start"></ion-icon>
+          Registrar Entrada
+        </ion-button>
+
+        <ion-button expand="block" fill="solid" color="danger" (click)="openTransactionForm('saida')" class="transaction-btn">
+          <ion-icon name="arrow-up-outline" slot="start"></ion-icon>
+          Registrar Saída
+        </ion-button>
+      </div>
+
+      <div class="add-transaction-form" *ngIf="showAddTransactionForm">
+        <div class="form-header">
+          <h4>{{ transactionType === 'entrada' ? '💰 Nova Entrada' : '💸 Nova Saída' }}</h4>
+          <ion-button fill="clear" (click)="closeTransactionForm()">
+            <ion-icon name="close-outline"></ion-icon>
+          </ion-button>
+        </div>
+
+        <ion-item>
+          <ion-label position="floating">Descrição</ion-label>
+          <ion-input
+            [(ngModel)]="newTransaction.name"
+            type="text"
+            [placeholder]="transactionType === 'entrada' ? 'Ex: Salário, Freelance, Vendas...' : 'Ex: Supermercado, Combustível, Conta de luz...'">
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Valor (R$)</ion-label>
+          <ion-input
+            [(ngModel)]="newTransaction.amount"
+            type="number"
+            step="0.01"
+            [placeholder]="transactionType === 'entrada' ? 'Quanto você recebeu?' : 'Quanto você gastou?'">
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Categoria</ion-label>
+          <ion-select
+            [(ngModel)]="newTransaction.category"
+            [placeholder]="transactionType === 'entrada' ? 'De onde veio este dinheiro?' : 'Em que você gastou?'">
+            <!-- Categorias de Entrada -->
+            <ion-select-option value="salario" *ngIf="transactionType === 'entrada'">💼 Salário</ion-select-option>
+            <ion-select-option value="freelance" *ngIf="transactionType === 'entrada'">💻 Freelance</ion-select-option>
+            <ion-select-option value="investimento" *ngIf="transactionType === 'entrada'">📈 Investimentos</ion-select-option>
+            <ion-select-option value="vendas" *ngIf="transactionType === 'entrada'">🛒 Vendas</ion-select-option>
+            <ion-select-option value="outros" *ngIf="transactionType === 'entrada'">💰 Outros</ion-select-option>
+
+            <!-- Categorias de Saída -->
+            <ion-select-option value="alimentacao" *ngIf="transactionType === 'saida'">🍔 Alimentação</ion-select-option>
+            <ion-select-option value="moradia" *ngIf="transactionType === 'saida'">🏠 Moradia</ion-select-option>
+            <ion-select-option value="transporte" *ngIf="transactionType === 'saida'">🚗 Transporte</ion-select-option>
+            <ion-select-option value="saude" *ngIf="transactionType === 'saida'">🏥 Saúde</ion-select-option>
+            <ion-select-option value="lazer" *ngIf="transactionType === 'saida'">🎮 Lazer</ion-select-option>
+            <ion-select-option value="educacao" *ngIf="transactionType === 'saida'">📚 Educação</ion-select-option>
+            <ion-select-option value="compras" *ngIf="transactionType === 'saida'">🛍️ Compras</ion-select-option>
+            <ion-select-option value="outros" *ngIf="transactionType === 'saida'">💸 Outros</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <div class="form-buttons">
+          <ion-button fill="outline" (click)="cancelAddTransaction()">
+            Cancelar
+          </ion-button>
+          <ion-button (click)="saveNewTransaction()">
+            {{ transactionType === 'entrada' ? 'Registrar Entrada' : 'Registrar Saída' }}
+          </ion-button>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Espaçamento para o menu inferior -->
+  <div class="bottom-spacing"></div>
+</ion-content>
+
+<!-- Menu Inferior Fixo -->
+<div class="fixed-bottom-menu">
+  <div class="menu-item active">
+    <ion-icon name="home"></ion-icon>
+    <span>Início</span>
+  </div>
+
+  <div class="menu-item">
+    <ion-icon name="stats-chart"></ion-icon>
+    <span>Relatórios</span>
+  </div>
+
+  <div class="menu-item">
+    <ion-icon name="card"></ion-icon>
+    <span>Cartões</span>
+  </div>
+
+  <div class="menu-item">
+    <ion-icon name="settings"></ion-icon>
+    <span>Config</span>
+  </div>
+
+  <div class="menu-item" (click)="logout()">
+    <ion-icon name="log-out"></ion-icon>
+    <span>Sair</span>
+  </div>
+</div>

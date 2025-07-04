@@ -1,0 +1,133 @@
+@import '../../../theme/mixins.scss';
+
+.login-container {
+  @include app-container;
+  @include app-text-center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: var(--app-gradient-header);
+}
+
+.logo-container {
+  @include app-section-spacing;
+  
+  .logo {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin-bottom: var(--app-spacing-md);
+    /* Removendo border-radius e sombra para evitar bordas */
+    background: transparent;
+  }
+  
+  h1 {
+    @include app-logo;
+    font-size: var(--app-font-size-xl);
+  }
+}
+
+ion-content {
+  --background: var(--ion-color-light);
+  border: none !important;
+  outline: none !important;
+}
+
+ion-card {
+  @include app-card;
+  width: 100%;
+  max-width: 400px;
+  margin: 0;
+  border: none !important;
+  outline: none !important;
+  
+  ion-card-header {
+    @include app-text-center;
+    padding-bottom: 0;
+    
+    ion-card-title {
+      @include app-text-title;
+      font-size: var(--app-font-size-lg);
+    }
+  }
+  
+  ion-card-content {
+    padding: var(--app-spacing-lg);
+  }
+}
+
+ion-item {
+  margin-bottom: var(--app-spacing-md);
+  --border-radius: var(--app-border-radius-md);
+  --background: var(--ion-color-light);
+  box-shadow: var(--app-shadow-sm);
+  
+  ion-label {
+    font-weight: 500;
+    color: var(--ion-color-dark);
+    font-size: var(--app-font-size-sm);
+  }
+  
+  ion-input {
+    --color: var(--ion-color-dark);
+    font-size: var(--app-font-size-md);
+  }
+}
+
+.button-container {
+  margin-top: var(--app-spacing-lg);
+  
+  ion-button {
+    @include app-button-primary;
+    margin-bottom: var(--app-spacing-sm);
+    
+    &[fill="outline"] {
+      --background: transparent;
+      --color: var(--ion-color-secondary);
+      --border-color: var(--ion-color-secondary);
+      --background-hover: var(--ion-color-secondary);
+      --color-hover: white;
+    }
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.back-to-home {
+  @include app-text-center;
+  margin-top: var(--app-spacing-lg);
+  
+  ion-button {
+    --color: var(--ion-color-medium);
+    font-size: var(--app-font-size-sm);
+  }
+}
+
+// Responsive design
+@media (max-width: 480px) {
+  .login-container {
+    padding: var(--app-spacing-sm);
+  }
+  
+  .logo-container .logo {
+    width: 100px;
+    height: 100px;
+  }
+  
+  ion-card {
+    margin: 0 var(--app-spacing-xs);
+    
+    ion-card-content {
+      padding: var(--app-spacing-md);
+    }
+  }
+  
+  .button-container ion-button {
+    height: 44px;
+    font-size: var(--app-font-size-sm);
+  }
+}

@@ -1,0 +1,388 @@
+@import '../../../theme/variables.scss';
+
+.register-content {
+  --background: var(--ion-color-light);
+  padding: 0;
+  overflow-x: hidden;
+}
+
+// Header com gradiente
+.register-header {
+  position: relative;
+  padding: 80px 20px 60px;
+  background: linear-gradient(135deg, var(--ion-color-primary) 0%, var(--ion-color-secondary) 100%);
+  color: white;
+  text-align: center;
+  overflow: hidden;
+  
+  .header-content {
+    position: relative;
+    z-index: 2;
+    
+    .logo-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 16px;
+      
+      .logo-icon {
+        font-size: 48px;
+        margin-bottom: 12px;
+        color: white;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+      }
+      
+      h1 {
+        font-size: 32px;
+        font-weight: 700;
+        margin: 0;
+        letter-spacing: -1px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+    }
+    
+    .welcome-text {
+      font-size: 16px;
+      margin: 0;
+      opacity: 0.9;
+      font-weight: 400;
+      line-height: 1.4;
+    }
+  }
+}
+
+// Container do formulário
+.register-form-container {
+  margin: -40px 16px 0;
+  position: relative;
+  z-index: 10;
+  padding-bottom: 40px;
+  
+  .register-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    border: none;
+    
+    .form-header {
+      text-align: center;
+      margin-bottom: 32px;
+      
+      h2 {
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--ion-color-dark);
+        margin: 0 0 8px 0;
+      }
+      
+      .form-subtitle {
+        font-size: 14px;
+        color: var(--ion-color-medium);
+        margin: 0;
+      }
+    }
+    
+    .register-form {
+      .input-group {
+        margin-bottom: 24px;
+        
+        .custom-item {
+          --border-radius: 12px;
+          --border-width: 2px;
+          --border-color: #e0e0e0;
+          --background: #f8f9fa;
+          --padding-start: 16px;
+          --padding-end: 16px;
+          --inner-padding-end: 8px;
+          --min-height: 56px;
+          border-radius: 12px;
+          margin-bottom: 8px;
+          transition: all 0.3s ease;
+          
+          &.ion-focused {
+            --border-color: var(--ion-color-primary);
+            --background: white;
+            box-shadow: 0 4px 12px rgba(244, 162, 97, 0.2);
+          }
+          
+          .input-icon {
+            color: var(--ion-color-medium);
+            font-size: 20px;
+            margin-right: 12px;
+          }
+          
+          ion-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--ion-color-dark);
+          }
+          
+          ion-input {
+            --padding-start: 0;
+            --padding-end: 0;
+            font-size: 16px;
+            color: var(--ion-color-dark);
+          }
+          
+          ion-button {
+            --color: var(--ion-color-medium);
+            --background: transparent;
+            --box-shadow: none;
+            
+            &:hover {
+              --color: var(--ion-color-primary);
+            }
+          }
+        }
+        
+        .error-message {
+          font-size: 12px;
+          color: var(--ion-color-danger);
+          margin-top: 4px;
+          margin-left: 16px;
+          font-weight: 500;
+        }
+      }
+      
+      .terms-section {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 24px;
+        padding: 0 4px;
+        
+        .terms-checkbox {
+          margin-right: 12px;
+          margin-top: 2px;
+          --size: 20px;
+          --border-width: 2px;
+          --border-color: #e0e0e0;
+          --background: white;
+          --border-radius: 4px;
+          
+          &.checkbox-checked {
+            --background: var(--ion-color-primary);
+            --border-color: var(--ion-color-primary);
+          }
+        }
+        
+        .terms-label {
+          font-size: 14px;
+          color: var(--ion-color-medium);
+          line-height: 1.4;
+          flex: 1;
+          
+          .terms-link {
+            color: var(--ion-color-primary);
+            text-decoration: none;
+            font-weight: 500;
+            
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+      
+      .register-button {
+        --background: linear-gradient(135deg, var(--ion-color-primary) 0%, var(--ion-color-secondary) 100%);
+        --color: white;
+        --border-radius: 12px;
+        --padding-top: 16px;
+        --padding-bottom: 16px;
+        --box-shadow: 0 8px 24px rgba(244, 162, 97, 0.4);
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 24px;
+        transition: all 0.3s ease;
+        
+        &:hover {
+          --box-shadow: 0 12px 32px rgba(244, 162, 97, 0.5);
+          transform: translateY(-2px);
+        }
+        
+        &:active {
+          transform: translateY(0);
+        }
+        
+        &.button-disabled {
+          --background: #e0e0e0;
+          --color: #999;
+          --box-shadow: none;
+          transform: none;
+        }
+        
+        ion-spinner {
+          margin-right: 8px;
+        }
+      }
+      
+      .divider {
+        text-align: center;
+        margin: 24px 0;
+        position: relative;
+        
+        &::before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 0;
+          right: 0;
+          height: 1px;
+          background: #e0e0e0;
+          z-index: 1;
+        }
+        
+        span {
+          background: white;
+          padding: 0 16px;
+          font-size: 14px;
+          color: var(--ion-color-medium);
+          position: relative;
+          z-index: 2;
+        }
+      }
+      
+      .google-button {
+        --border-color: #e0e0e0;
+        --color: var(--ion-color-dark);
+        --border-radius: 12px;
+        --padding-top: 16px;
+        --padding-bottom: 16px;
+        --border-width: 2px;
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 24px;
+        transition: all 0.3s ease;
+        
+        &:hover {
+          --background: #f8f9fa;
+          --border-color: var(--ion-color-primary);
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        &:active {
+          transform: translateY(0);
+        }
+        
+        ion-icon {
+          color: #ea4335;
+          font-size: 20px;
+        }
+      }
+      
+      .login-section {
+        text-align: center;
+        margin-top: 32px;
+        
+        p {
+          font-size: 14px;
+          color: var(--ion-color-medium);
+          margin: 0;
+          
+          .login-link {
+            color: var(--ion-color-primary);
+            text-decoration: none;
+            font-weight: 600;
+            
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Responsividade
+@media (max-width: 480px) {
+  .register-header {
+    padding: 60px 16px 40px;
+    
+    .header-content {
+      .logo-section {
+        .logo-icon {
+          font-size: 40px;
+        }
+        
+        h1 {
+          font-size: 28px;
+        }
+      }
+      
+      .welcome-text {
+        font-size: 14px;
+      }
+    }
+  }
+  
+  .register-form-container {
+    margin: -30px 12px 0;
+    
+    .register-card {
+      .form-header {
+        h2 {
+          font-size: 20px;
+        }
+      }
+      
+      .register-form {
+        .input-group {
+          margin-bottom: 20px;
+          
+          .custom-item {
+            --min-height: 52px;
+          }
+        }
+        
+        .terms-section {
+          .terms-label {
+            font-size: 13px;
+          }
+        }
+        
+        .register-button,
+        .google-button {
+          --padding-top: 14px;
+          --padding-bottom: 14px;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
+
+// Animações
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.register-form-container {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+// Estados de loading
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  
+  ion-spinner {
+    --color: var(--ion-color-primary);
+  }
+}
