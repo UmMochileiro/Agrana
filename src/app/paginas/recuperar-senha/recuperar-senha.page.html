@@ -1,0 +1,125 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Recuperar Senha</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="page-container">
+    
+    <!-- Logo e Título -->
+    <div class="header-section">
+      <div class="logo-container">
+        <img src="assets/icon/logo.png" alt="Agrana Logo" class="logo">
+      </div>
+      <h1 class="page-title">Recuperar Senha</h1>
+      <p class="page-subtitle" *ngIf="!emailSent">
+        Digite seu email e enviaremos um link para redefinir sua senha.
+      </p>
+      <p class="page-subtitle" *ngIf="emailSent">
+        Email enviado! Verifique sua caixa de entrada e spam.
+      </p>
+    </div>
+
+    <!-- Formulário de Recuperação -->
+    <div class="form-section" *ngIf="!emailSent">
+      <div class="input-group">
+        <ion-item lines="none" class="custom-input">
+          <ion-icon name="mail-outline" slot="start"></ion-icon>
+          <ion-input
+            [(ngModel)]="email"
+            type="email"
+            placeholder="Digite seu email"
+            (ionInput)="onEmailChange()"
+            [disabled]="isLoading">
+          </ion-input>
+        </ion-item>
+      </div>
+
+      <!-- Mensagens de Erro -->
+      <div class="error-message" *ngIf="errorMessage">
+        <ion-icon name="alert-circle-outline"></ion-icon>
+        <span>{{ errorMessage }}</span>
+      </div>
+
+      <!-- Botão de Enviar -->
+      <ion-button 
+        expand="block" 
+        fill="solid" 
+        (click)="enviarRecuperacao()" 
+        class="send-btn"
+        [disabled]="isLoading || !email">
+        <ion-spinner name="circular" *ngIf="isLoading"></ion-spinner>
+        <span *ngIf="!isLoading">Enviar Link de Recuperação</span>
+        <span *ngIf="isLoading">Enviando...</span>
+      </ion-button>
+    </div>
+
+    <!-- Seção de Sucesso -->
+    <div class="success-section" *ngIf="emailSent">
+      <div class="success-icon">
+        <ion-icon name="checkmark-circle-outline"></ion-icon>
+      </div>
+      
+      <div class="success-message">
+        <h2>Email Enviado!</h2>
+        <p>{{ successMessage }}</p>
+      </div>
+
+      <div class="instructions">
+        <h3>Próximos passos:</h3>
+        <ol>
+          <li>Verifique sua caixa de entrada</li>
+          <li>Clique no link do email</li>
+          <li>Defina uma nova senha</li>
+          <li>Faça login com a nova senha</li>
+        </ol>
+      </div>
+
+      <!-- Botões de Ação -->
+      <div class="action-buttons">
+        <ion-button 
+          expand="block" 
+          fill="outline" 
+          (click)="reenviarEmail()" 
+          class="resend-btn"
+          [disabled]="isLoading">
+          <ion-icon name="refresh-outline" slot="start"></ion-icon>
+          Reenviar Email
+        </ion-button>
+
+        <ion-button 
+          expand="block" 
+          fill="solid" 
+          (click)="voltarLogin()" 
+          class="back-btn">
+          <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+          Voltar ao Login
+        </ion-button>
+      </div>
+    </div>
+
+    <!-- Seção de Ajuda -->
+    <div class="help-section">
+      <h3>Não recebeu o email?</h3>
+      <ul>
+        <li>Verifique sua pasta de spam</li>
+        <li>Confirme se o email está correto</li>
+        <li>Aguarde alguns minutos</li>
+        <li>Tente reenviar o email</li>
+      </ul>
+      
+      <div class="contact-support">
+        <p>Ainda com problemas?</p>
+        <ion-button fill="clear" size="small" (click)="router.navigate(['/ajuda-suporte'])">
+          <ion-icon name="help-circle-outline" slot="start"></ion-icon>
+          Entre em contato
+        </ion-button>
+      </div>
+    </div>
+
+  </div>
+</ion-content>

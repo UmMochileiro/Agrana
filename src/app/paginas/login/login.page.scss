@@ -19,7 +19,6 @@
     height: 120px;
     object-fit: contain;
     margin-bottom: var(--app-spacing-md);
-    /* Removendo border-radius e sombra para evitar bordas */
     background: transparent;
   }
   
@@ -58,21 +57,85 @@ ion-card {
   }
 }
 
+// Estilos específicos para ion-item e correção do autocomplete
 ion-item {
   margin-bottom: var(--app-spacing-md);
   --border-radius: var(--app-border-radius-md);
-  --background: var(--ion-color-light);
+  --background: white;
+  --border-color: transparent;
+  --inner-border-width: 0;
+  --border-width: 0;
   box-shadow: var(--app-shadow-sm);
+  overflow: hidden;
+  
+  // Garantir que o item tenha fundo branco consistente
+  &.item {
+    --background: white !important;
+    background: white !important;
+  }
+  
+  // Remover bordas padrão do Ionic
+  &::part(native) {
+    border: none !important;
+    background: white !important;
+  }
   
   ion-label {
     font-weight: 500;
     color: var(--ion-color-dark);
     font-size: var(--app-font-size-sm);
+    margin-bottom: 4px;
   }
+}
+
+// Estilos específicos para ion-input com correção do autocomplete
+ion-input {
+  --color: var(--ion-color-dark);
+  font-size: var(--app-font-size-md);
   
-  ion-input {
-    --color: var(--ion-color-dark);
-    font-size: var(--app-font-size-md);
+  // Corrigir estilos do autocomplete/autofill para remover o fundo feio
+  input {
+    // Remover o fundo azul/amarelo do autocomplete do Chrome/Safari
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0 30px white inset !important;
+      -webkit-text-fill-color: var(--ion-color-dark) !important;
+      border-radius: var(--app-border-radius-md) !important;
+      transition: background-color 5000s ease-in-out 0s !important;
+    }
+    
+    // Para Firefox
+    &:-moz-autofill {
+      background-color: white !important;
+      color: var(--ion-color-dark) !important;
+      border-radius: var(--app-border-radius-md) !important;
+    }
+    
+    // Estilos gerais do input
+    background-color: white !important;
+    color: var(--ion-color-dark) !important;
+    border: none !important;
+    outline: none !important;
+    font-size: var(--app-font-size-md) !important;
+    font-family: inherit !important;
+    
+    // Placeholder
+    &::placeholder {
+      color: var(--ion-color-medium) !important;
+      font-size: var(--app-font-size-md) !important;
+      opacity: 0.7 !important;
+    }
+    
+    // Focus
+    &:focus {
+      background-color: white !important;
+      color: var(--ion-color-dark) !important;
+      border: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+    }
   }
 }
 
@@ -104,6 +167,30 @@ ion-item {
   ion-button {
     --color: var(--ion-color-medium);
     font-size: var(--app-font-size-sm);
+  }
+}
+
+// Forgot password section
+.forgot-password {
+  text-align: center;
+  margin: var(--app-spacing-md) 0;
+  padding: var(--app-spacing-sm) 0;
+  border-top: 1px solid var(--ion-color-light-shade);
+  border-bottom: 1px solid var(--ion-color-light-shade);
+  
+  ion-button {
+    --color: var(--ion-color-medium);
+    font-size: var(--app-font-size-sm);
+    font-weight: 500;
+    
+    &:hover {
+      --color: var(--ion-color-primary);
+    }
+    
+    ion-icon {
+      font-size: var(--app-font-size-md);
+      margin-right: var(--app-spacing-xs);
+    }
   }
 }
 

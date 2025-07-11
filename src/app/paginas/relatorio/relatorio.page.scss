@@ -1,0 +1,324 @@
+.relatorio-content {
+  --background: var(--ion-color-light);
+  padding: 0;
+  
+  .period-selector {
+    padding: 16px;
+    margin-top: 16px;
+    
+    ion-segment {
+      border-radius: 12px;
+      --background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      
+      ion-segment-button {
+        --color: var(--ion-color-medium);
+        --color-checked: var(--ion-color-primary);
+        --background-checked: white;
+        --border-radius: 8px;
+        font-weight: 500;
+      }
+    }
+  }
+  
+  .financial-summary {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 0 16px 16px;
+    
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .summary-card {
+      margin: 0;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      
+      &.total {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+      }
+      
+      &.income {
+        background: linear-gradient(135deg, #4ade80, #22c55e);
+        color: white;
+      }
+      
+      &.expense {
+        background: linear-gradient(135deg, #f87171, #ef4444);
+        color: white;
+      }
+      
+      .card-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 12px;
+        
+        ion-icon {
+          font-size: 20px;
+          opacity: 0.9;
+        }
+        
+        .card-title {
+          font-size: 14px;
+          font-weight: 500;
+          opacity: 0.9;
+        }
+      }
+      
+      .card-amount {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      
+      .card-change {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 12px;
+        opacity: 0.8;
+        
+        ion-icon {
+          font-size: 14px;
+        }
+        
+        &.positive {
+          color: rgba(255, 255, 255, 0.9);
+        }
+        
+        &.negative {
+          color: rgba(255, 255, 255, 0.9);
+        }
+      }
+    }
+  }
+  
+  .chart-card {
+    margin: 0 16px 16px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    
+    .chart-container {
+      margin-bottom: 24px;
+      
+      .chart-placeholder {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 200px;
+        background: #f8f9fa;
+        border-radius: 12px;
+        
+        ion-icon {
+          font-size: 48px;
+          color: var(--ion-color-medium);
+          margin-bottom: 12px;
+        }
+        
+        p {
+          color: var(--ion-color-medium);
+          font-size: 14px;
+          margin: 0;
+        }
+      }
+    }
+    
+    .categories-list {
+      .category-item {
+        display: flex;
+        align-items: center;
+        padding: 12px 0;
+        border-bottom: 1px solid #f0f0f0;
+        
+        &:last-child {
+          border-bottom: none;
+        }
+        
+        .category-color {
+          width: 16px;
+          height: 16px;
+          border-radius: 4px;
+          margin-right: 12px;
+          flex-shrink: 0;
+        }
+        
+        .category-info {
+          flex: 1;
+          display: flex;
+          justify-content: space-between;
+          margin-right: 12px;
+          
+          .category-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--ion-color-dark);
+          }
+          
+          .category-amount {
+            font-size: 14px;
+            color: var(--ion-color-medium);
+          }
+        }
+        
+        .category-percentage {
+          font-size: 14px;
+          font-weight: 600;
+          color: var(--ion-color-primary);
+          min-width: 40px;
+          text-align: right;
+        }
+      }
+    }
+  }
+  
+  .analysis-card {
+    margin: 0 16px 16px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    
+    .analysis-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      
+      @media (max-width: 480px) {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      
+      .analysis-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 16px;
+        background: #f8f9fa;
+        border-radius: 12px;
+        
+        .analysis-icon {
+          width: 40px;
+          height: 40px;
+          border-radius: 10px;
+          background: var(--ion-color-primary);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          
+          ion-icon {
+            font-size: 20px;
+            color: white;
+          }
+        }
+        
+        .analysis-content {
+          h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ion-color-dark);
+            margin: 0 0 2px 0;
+          }
+          
+          p {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--ion-color-primary);
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+  
+  .insights-card {
+    margin: 0 16px 16px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    
+    .insight-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid #f0f0f0;
+      
+      &:last-child {
+        border-bottom: none;
+      }
+      
+      .insight-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        
+        &.success {
+          background: rgba(34, 197, 94, 0.1);
+          color: #22c55e;
+        }
+        
+        &.warning {
+          background: rgba(245, 158, 11, 0.1);
+          color: #f59e0b;
+        }
+        
+        &.info {
+          background: rgba(59, 130, 246, 0.1);
+          color: #3b82f6;
+        }
+        
+        ion-icon {
+          font-size: 24px;
+        }
+      }
+      
+      .insight-content {
+        h4 {
+          font-size: 16px;
+          font-weight: 600;
+          color: var(--ion-color-dark);
+          margin: 0 0 4px 0;
+        }
+        
+        p {
+          font-size: 14px;
+          color: var(--ion-color-medium);
+          margin: 0;
+          line-height: 1.4;
+        }
+      }
+    }
+  }
+  
+  .bottom-spacing {
+    height: 100px;
+  }
+}
+
+// Responsividade adicional
+@media (max-width: 480px) {
+  .relatorio-content {
+    .financial-summary {
+      padding: 0 12px 12px;
+      gap: 8px;
+      
+      .summary-card {
+        .card-amount {
+          font-size: 20px;
+        }
+      }
+    }
+    
+    .chart-card,
+    .analysis-card,
+    .insights-card {
+      margin: 0 12px 12px;
+    }
+  }
+}

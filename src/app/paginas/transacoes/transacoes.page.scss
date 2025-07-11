@@ -1,0 +1,235 @@
+.transacoes-content {
+  --background: var(--ion-color-light);
+  padding: 0;
+  
+  .summary-cards {
+    display: flex;
+    gap: 12px;
+    padding: 16px;
+    margin-top: 16px;
+    
+    .summary-card {
+      flex: 1;
+      margin: 0;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      
+      &.income {
+        background: linear-gradient(135deg, #4ade80, #22c55e);
+        color: white;
+      }
+      
+      &.expense {
+        background: linear-gradient(135deg, #f87171, #ef4444);
+        color: white;
+      }
+      
+      .card-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+        
+        ion-icon {
+          font-size: 20px;
+        }
+        
+        .card-title {
+          font-size: 14px;
+          font-weight: 500;
+          opacity: 0.9;
+        }
+      }
+      
+      .card-amount {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 4px;
+        
+        &.positive {
+          color: white;
+        }
+        
+        &.negative {
+          color: white;
+        }
+      }
+      
+      .card-period {
+        font-size: 12px;
+        opacity: 0.8;
+      }
+    }
+  }
+  
+  .quick-filters {
+    padding: 0 16px 16px;
+    
+    ion-segment {
+      border-radius: 12px;
+      --background: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      
+      ion-segment-button {
+        --color: var(--ion-color-medium);
+        --color-checked: var(--ion-color-primary);
+        --background-checked: white;
+        --border-radius: 8px;
+        font-weight: 500;
+      }
+    }
+  }
+  
+  .transactions-list {
+    margin: 0 16px 16px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    
+    .transaction-item {
+      display: flex;
+      align-items: center;
+      padding: 16px 0;
+      border-bottom: 1px solid #f0f0f0;
+      
+      &:last-child {
+        border-bottom: none;
+      }
+      
+      .transaction-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 16px;
+        
+        &.income {
+          background: rgba(34, 197, 94, 0.1);
+          color: #22c55e;
+        }
+        
+        &.expense {
+          background: rgba(239, 68, 68, 0.1);
+          color: #ef4444;
+        }
+        
+        ion-icon {
+          font-size: 24px;
+        }
+      }
+      
+      .transaction-details {
+        flex: 1;
+        
+        .transaction-name {
+          font-size: 16px;
+          font-weight: 600;
+          color: var(--ion-color-dark);
+          margin-bottom: 2px;
+        }
+        
+        .transaction-category {
+          font-size: 14px;
+          color: var(--ion-color-medium);
+          margin-bottom: 2px;
+        }
+        
+        .transaction-date {
+          font-size: 12px;
+          color: var(--ion-color-medium);
+        }
+      }
+      
+      .transaction-amount {
+        font-size: 16px;
+        font-weight: 700;
+        
+        &.income {
+          color: #22c55e;
+        }
+        
+        &.expense {
+          color: #ef4444;
+        }
+      }
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      
+      ion-icon {
+        font-size: 64px;
+        color: var(--ion-color-medium);
+        margin-bottom: 16px;
+      }
+      
+      h3 {
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--ion-color-dark);
+        margin-bottom: 8px;
+      }
+      
+      p {
+        font-size: 14px;
+        color: var(--ion-color-medium);
+        margin-bottom: 24px;
+        line-height: 1.5;
+      }
+    }
+  }
+  
+  .bottom-spacing {
+    height: 100px;
+  }
+}
+
+// Responsividade
+@media (max-width: 480px) {
+  .transacoes-content {
+    .summary-cards {
+      padding: 12px;
+      gap: 8px;
+      
+      .summary-card {
+        .card-amount {
+          font-size: 18px;
+        }
+      }
+    }
+    
+    .transactions-list {
+      margin: 0 12px 12px;
+      
+      .transaction-item {
+        padding: 12px 0;
+        
+        .transaction-icon {
+          width: 40px;
+          height: 40px;
+          margin-right: 12px;
+          
+          ion-icon {
+            font-size: 20px;
+          }
+        }
+        
+        .transaction-details {
+          .transaction-name {
+            font-size: 14px;
+          }
+          
+          .transaction-category {
+            font-size: 12px;
+          }
+        }
+        
+        .transaction-amount {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}

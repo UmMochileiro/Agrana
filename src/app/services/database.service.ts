@@ -509,6 +509,52 @@ export class DatabaseService {
     });
   }
 
+  // Atualizar perfil do usuário
+  async updateUserProfile(userId: string, currentUserId: string, updates: Partial<UserProfile>): Promise<void> {
+    validateUserAccess(userId, currentUserId);
+    
+    const userRef = doc(this.firestore, 'users', userId);
+    const updateData = {
+      ...updates,
+      updatedAt: new Date()
+    };
+    
+    await updateDoc(userRef, updateData);
+  }
+
+  // Atualizar preferências do usuário
+  async updateUserPreferences(userId: string, currentUserId: string, preferences: Partial<UserProfile['preferences']>): Promise<void> {
+    validateUserAccess(userId, currentUserId);
+    
+    const userRef = doc(this.firestore, 'users', userId);
+    const updateData = {
+      preferences,
+      updatedAt: new Date()
+    };
+    
+    await updateDoc(userRef, updateData);
+  }
+
+  // Obter preferências do usuário
+  async getUserPreferences(userId: string, currentUserId: string): Promise<UserProfile['preferences'] | null> {
+    validateUserAccess(userId, currentUserId);
+    
+    const userRef = doc(this.firestore, 'users', userId);
+    const userDoc = await getDoc(userRef);
+    
+    if (userDoc.exists()) {
+      const userData = userDoc.data() as UserProfile;
+      return userData.preferences || {
+        currency: 'BRL',
+        language: 'pt-BR',
+        notifications: true,
+        theme: 'light'
+      };
+    }
+    
+    return null;
+  }
+
   // Calcular totais
   calculateTotalBalance(accounts: Account[]): number {
     return accounts.reduce((total, account) => total + account.balance, 0);

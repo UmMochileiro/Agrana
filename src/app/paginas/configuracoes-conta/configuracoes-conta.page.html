@@ -1,0 +1,137 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Configurações da Conta</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/dashboard"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="page-container">
+    
+    <!-- Loading Spinner -->
+    <div *ngIf="isLoading" class="loading-container">
+      <ion-spinner name="circular"></ion-spinner>
+      <p>Carregando dados...</p>
+    </div>
+
+    <div *ngIf="!isLoading">
+      <!-- Perfil Section -->
+      <div class="section-card">
+        <h2 class="section-title">
+          <ion-icon name="person-circle-outline"></ion-icon>
+          Perfil
+        </h2>
+        
+        <div class="profile-photo">
+          <img [src]="profile.foto" alt="Foto do perfil">
+          <ion-button fill="clear" size="small" class="change-photo-btn">
+            <ion-icon name="camera-outline"></ion-icon>
+          </ion-button>
+        </div>
+
+        <ion-item lines="none" class="profile-item">
+          <ion-label position="stacked">Nome</ion-label>
+          <ion-input [(ngModel)]="profile.nome" placeholder="Seu nome"></ion-input>
+        </ion-item>
+
+        <ion-item lines="none" class="profile-item">
+          <ion-label position="stacked">Email</ion-label>
+          <ion-input [(ngModel)]="profile.email" type="email" placeholder="seu.email@exemplo.com" [readonly]="true"></ion-input>
+        </ion-item>
+
+        <ion-item lines="none" class="profile-item">
+          <ion-label position="stacked">Telefone</ion-label>
+          <ion-input [(ngModel)]="profile.telefone" type="tel" placeholder="(11) 99999-9999"></ion-input>
+        </ion-item>
+
+        <ion-button expand="block" fill="solid" (click)="salvarPerfil()" class="save-btn" [disabled]="isLoading">
+          <ion-icon name="save-outline" slot="start"></ion-icon>
+          {{ isLoading ? 'Salvando...' : 'Salvar Perfil' }}
+        </ion-button>
+      </div>
+
+      <!-- Segurança Section -->
+      <div class="section-card">
+        <h2 class="section-title">
+          <ion-icon name="shield-checkmark-outline"></ion-icon>
+          Segurança
+        </h2>
+
+        <ion-item lines="none" class="security-item">
+          <ion-icon name="key-outline" slot="start"></ion-icon>
+          <ion-label>Alterar Senha</ion-label>
+          <ion-button fill="clear" (click)="alterarSenha()" slot="end">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+
+        <!-- Campos para alterar senha -->
+        <div class="password-change-section">
+          <ion-item lines="none" class="profile-item">
+            <ion-label position="stacked">Nova Senha</ion-label>
+            <ion-input [(ngModel)]="passwordChange.newPassword" type="password" placeholder="Digite a nova senha"></ion-input>
+          </ion-item>
+
+          <ion-item lines="none" class="profile-item">
+            <ion-label position="stacked">Confirmar Nova Senha</ion-label>
+            <ion-input [(ngModel)]="passwordChange.confirmPassword" type="password" placeholder="Confirme a nova senha"></ion-input>
+          </ion-item>
+
+          <ion-button expand="block" fill="outline" (click)="alterarSenha()" class="change-password-btn" [disabled]="isLoading || !passwordChange.newPassword || !passwordChange.confirmPassword">
+            <ion-icon name="key-outline" slot="start"></ion-icon>
+            {{ isLoading ? 'Alterando...' : 'Alterar Senha' }}
+          </ion-button>
+        </div>
+
+        <ion-item lines="none" class="security-item">
+          <ion-icon name="finger-print-outline" slot="start"></ion-icon>
+          <ion-label>Autenticação Biométrica</ion-label>
+          <ion-toggle [(ngModel)]="security.biometric" slot="end"></ion-toggle>
+        </ion-item>
+
+        <ion-item lines="none" class="security-item">
+          <ion-icon name="shield-outline" slot="start"></ion-icon>
+          <ion-label>Autenticação de 2 Fatores</ion-label>
+          <ion-toggle [(ngModel)]="security.twoFactor" slot="end"></ion-toggle>
+        </ion-item>
+      </div>
+
+      <!-- Notificações Section -->
+      <div class="section-card">
+        <h2 class="section-title">
+          <ion-icon name="notifications-outline"></ion-icon>
+          Notificações
+        </h2>
+
+        <ion-item lines="none" class="notification-item">
+          <ion-icon name="mail-outline" slot="start"></ion-icon>
+          <ion-label>Notificações por Email</ion-label>
+          <ion-toggle [(ngModel)]="security.notifications" slot="end"></ion-toggle>
+        </ion-item>
+      </div>
+
+      <!-- Dados Section -->
+      <div class="section-card">
+        <h2 class="section-title">
+          <ion-icon name="folder-outline"></ion-icon>
+          Meus Dados
+        </h2>
+
+        <ion-item lines="none" class="data-item" button (click)="exportarDados()">
+          <ion-icon name="download-outline" slot="start"></ion-icon>
+          <ion-label>Exportar Dados</ion-label>
+          <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+        </ion-item>
+
+        <ion-item lines="none" class="data-item danger" button (click)="excluirConta()">
+          <ion-icon name="trash-outline" slot="start"></ion-icon>
+          <ion-label>Excluir Conta</ion-label>
+          <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+        </ion-item>
+      </div>
+    </div>
+
+  </div>
+</ion-content>

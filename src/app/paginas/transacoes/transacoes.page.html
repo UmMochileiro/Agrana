@@ -1,0 +1,96 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>Transações</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear">
+        <ion-icon name="filter"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear">
+        <ion-icon name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="transacoes-content">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Transações</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- Resumo das Transações -->
+  <div class="summary-cards">
+    <ion-card class="summary-card income">
+      <ion-card-content>
+        <div class="card-header">
+          <ion-icon name="trending-up"></ion-icon>
+          <span class="card-title">Entradas</span>
+        </div>
+        <div class="card-amount positive">+R$ 3.250,00</div>
+        <div class="card-period">Este mês</div>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="summary-card expense">
+      <ion-card-content>
+        <div class="card-header">
+          <ion-icon name="trending-down"></ion-icon>
+          <span class="card-title">Saídas</span>
+        </div>
+        <div class="card-amount negative">-R$ 2.180,00</div>
+        <div class="card-period">Este mês</div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Filtros Rápidos -->
+  <div class="quick-filters">
+    <ion-segment value="todas" color="primary">
+      <ion-segment-button value="todas">
+        <ion-label>Todas</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="entradas">
+        <ion-label>Entradas</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="saidas">
+        <ion-label>Saídas</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <!-- Lista de Transações -->
+  <ion-card class="transactions-list">
+    <ion-card-header>
+      <ion-card-title>Histórico de Transações</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="transaction-item" *ngFor="let transaction of transactions">
+        <div class="transaction-icon" [ngClass]="transaction.type">
+          <ion-icon [name]="getTransactionIcon(transaction.type)"></ion-icon>
+        </div>
+        <div class="transaction-details">
+          <div class="transaction-name">{{ transaction.name }}</div>
+          <div class="transaction-category">{{ transaction.category }}</div>
+          <div class="transaction-date">{{ transaction.date | date:'dd/MM/yyyy' }}</div>
+        </div>
+        <div class="transaction-amount" [ngClass]="transaction.type">
+          {{ transaction.type === 'income' ? '+' : '-' }}R$ {{ transaction.amount | number:'1.2-2' }}
+        </div>
+      </div>
+
+      <div class="empty-state" *ngIf="transactions.length === 0">
+        <ion-icon name="receipt-outline"></ion-icon>
+        <h3>Nenhuma transação encontrada</h3>
+        <p>Suas transações aparecerão aqui quando você começar a usar o app.</p>
+        <ion-button fill="solid" color="primary">
+          <ion-icon name="add" slot="start"></ion-icon>
+          Adicionar Primeira Transação
+        </ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Espaçamento para o menu inferior -->
+  <div class="bottom-spacing"></div>
+</ion-content>

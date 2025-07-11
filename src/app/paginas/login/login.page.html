@@ -26,7 +26,7 @@
             </ion-input>
           </ion-item>
 
-          <ion-item>
+          <ion-item> 
             <ion-label position="stacked">Senha</ion-label>
             <ion-input 
               type="password" 
@@ -57,6 +57,18 @@
             </ion-button>
           </div>
         </form>
+
+        <!-- Link para recuperar senha -->
+        <div class="forgot-password">
+          <ion-button 
+            fill="clear" 
+            size="small"
+            routerLink="/recuperar-senha"
+            color="medium">
+            <ion-icon name="key-outline" slot="start"></ion-icon>
+            Esqueceu sua senha?
+          </ion-button>
+        </div>
 
         <div class="back-to-home">
           <ion-button 

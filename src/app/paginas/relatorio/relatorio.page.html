@@ -1,0 +1,181 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>Relatórios</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear">
+        <ion-icon name="download"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear">
+        <ion-icon name="calendar"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="relatorio-content">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Relatórios</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- Período Selecionado -->
+  <div class="period-selector">
+    <ion-segment value="mes" color="primary">
+      <ion-segment-button value="semana">
+        <ion-label>Semana</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="mes">
+        <ion-label>Mês</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="ano">
+        <ion-label>Ano</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <!-- Cards de Resumo Financeiro -->
+  <div class="financial-summary">
+    <ion-card class="summary-card total">
+      <ion-card-content>
+        <div class="card-header">
+          <ion-icon name="wallet"></ion-icon>
+          <span class="card-title">Saldo Total</span>
+        </div>
+        <div class="card-amount">R$ {{ totalBalance | number:'1.2-2' }}</div>
+        <div class="card-change positive">
+          <ion-icon name="trending-up"></ion-icon>
+          <span>+12.5% vs mês anterior</span>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="summary-card income">
+      <ion-card-content>
+        <div class="card-header">
+          <ion-icon name="arrow-up"></ion-icon>
+          <span class="card-title">Entradas</span>
+        </div>
+        <div class="card-amount">R$ {{ totalIncome | number:'1.2-2' }}</div>
+        <div class="card-change positive">
+          <ion-icon name="trending-up"></ion-icon>
+          <span>+8.2%</span>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="summary-card expense">
+      <ion-card-content>
+        <div class="card-header">
+          <ion-icon name="arrow-down"></ion-icon>
+          <span class="card-title">Saídas</span>
+        </div>
+        <div class="card-amount">R$ {{ totalExpenses | number:'1.2-2' }}</div>
+        <div class="card-change negative">
+          <ion-icon name="trending-down"></ion-icon>
+          <span>+15.7%</span>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Gráfico de Gastos por Categoria -->
+  <ion-card class="chart-card">
+    <ion-card-header>
+      <ion-card-title>Gastos por Categoria</ion-card-title>
+      <ion-card-subtitle>Distribuição dos seus gastos no período</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="chart-container">
+        <!-- Placeholder para gráfico -->
+        <div class="chart-placeholder">
+          <ion-icon name="pie-chart"></ion-icon>
+          <p>Gráfico será implementado</p>
+        </div>
+      </div>
+      
+      <!-- Lista de Categorias -->
+      <div class="categories-list">
+        <div class="category-item" *ngFor="let category of expenseCategories">
+          <div class="category-color" [style.background-color]="category.color"></div>
+          <div class="category-info">
+            <span class="category-name">{{ category.name }}</span>
+            <span class="category-amount">R$ {{ category.amount | number:'1.2-2' }}</span>
+          </div>
+          <div class="category-percentage">{{ category.percentage }}%</div>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Análise Mensal -->
+  <ion-card class="analysis-card">
+    <ion-card-header>
+      <ion-card-title>Análise do Período</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="analysis-grid">
+        <div class="analysis-item">
+          <div class="analysis-icon">
+            <ion-icon name="calendar"></ion-icon>
+          </div>
+          <div class="analysis-content">
+            <h4>Dias analisados</h4>
+            <p>30 dias</p>
+          </div>
+        </div>
+        
+        <div class="analysis-item">
+          <div class="analysis-icon">
+            <ion-icon name="repeat"></ion-icon>
+          </div>
+          <div class="analysis-content">
+            <h4>Transações</h4>
+            <p>{{ totalTransactions }} operações</p>
+          </div>
+        </div>
+        
+        <div class="analysis-item">
+          <div class="analysis-icon">
+            <ion-icon name="trending-up"></ion-icon>
+          </div>
+          <div class="analysis-content">
+            <h4>Maior entrada</h4>
+            <p>R$ {{ largestIncome | number:'1.2-2' }}</p>
+          </div>
+        </div>
+        
+        <div class="analysis-item">
+          <div class="analysis-icon">
+            <ion-icon name="trending-down"></ion-icon>
+          </div>
+          <div class="analysis-content">
+            <h4>Maior saída</h4>
+            <p>R$ {{ largestExpense | number:'1.2-2' }}</p>
+          </div>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Dicas e Insights -->
+  <ion-card class="insights-card">
+    <ion-card-header>
+      <ion-card-title>💡 Insights Financeiros</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="insight-item" *ngFor="let insight of insights">
+        <div class="insight-icon" [ngClass]="insight.type">
+          <ion-icon [name]="insight.icon"></ion-icon>
+        </div>
+        <div class="insight-content">
+          <h4>{{ insight.title }}</h4>
+          <p>{{ insight.description }}</p>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Espaçamento para o menu inferior -->
+  <div class="bottom-spacing"></div>
+</ion-content>

@@ -105,4 +105,19 @@ export class AuthService {
   getUser(): Observable<User | null> {
     return this.user$;
   }
+
+  // Password reset
+  async sendPasswordResetEmail(email: string) {
+    try {
+      const { sendPasswordResetEmail } = await import('@angular/fire/auth');
+      await sendPasswordResetEmail(this.auth, email);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  // Get auth instance (for external functions)
+  getAuth() {
+    return this.auth;
+  }
 }

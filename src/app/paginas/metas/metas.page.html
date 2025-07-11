@@ -1,0 +1,100 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>Metas Financeiras</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear">
+        <ion-icon name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="metas-content">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Metas Financeiras</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- Resumo das Metas -->
+  <div class="goals-summary">
+    <ion-card class="summary-card">
+      <ion-card-content>
+        <div class="summary-header">
+          <ion-icon name="trophy"></ion-icon>
+          <div class="summary-text">
+            <h2>3 de 5</h2>
+            <p>Metas Atingidas</p>
+          </div>
+        </div>
+        <div class="summary-progress">
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 60%"></div>
+          </div>
+          <span class="progress-text">60% concluído</span>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Lista de Metas -->
+  <div class="goals-list">
+    <div class="goal-item" *ngFor="let goal of goals">
+      <ion-card [class]="goal.status">
+        <ion-card-content>
+          <div class="goal-header">
+            <div class="goal-icon">
+              <ion-icon [name]="goal.icon"></ion-icon>
+            </div>
+            <div class="goal-info">
+              <h3>{{ goal.title }}</h3>
+              <p>{{ goal.description }}</p>
+            </div>
+            <div class="goal-status">
+              <ion-icon [name]="getStatusIcon(goal.status)"></ion-icon>
+            </div>
+          </div>
+          
+          <div class="goal-progress">
+            <div class="progress-container">
+              <div class="progress-bar">
+                <div class="progress-fill" [style.width.%]="goal.progress"></div>
+              </div>
+              <span class="progress-percentage">{{ goal.progress }}%</span>
+            </div>
+            <div class="goal-amounts">
+              <span class="current">R$ {{ goal.current | number:'1.2-2' }}</span>
+              <span class="target">de R$ {{ goal.target | number:'1.2-2' }}</span>
+            </div>
+          </div>
+          
+          <div class="goal-deadline" *ngIf="goal.deadline">
+            <ion-icon name="calendar-outline"></ion-icon>
+            <span>Meta para {{ goal.deadline | date:'dd/MM/yyyy' }}</span>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+
+  <!-- Botão para Adicionar Nova Meta -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="add-goal-fab">
+    <ion-fab-button color="primary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <!-- Estado Vazio -->
+  <div class="empty-state" *ngIf="goals.length === 0">
+    <ion-icon name="trophy-outline"></ion-icon>
+    <h3>Nenhuma meta criada</h3>
+    <p>Defina suas metas financeiras e acompanhe seu progresso!</p>
+    <ion-button fill="solid" color="primary">
+      <ion-icon name="add" slot="start"></ion-icon>
+      Criar Primeira Meta
+    </ion-button>
+  </div>
+
+  <!-- Espaçamento para o menu inferior -->
+  <div class="bottom-spacing"></div>
+</ion-content>

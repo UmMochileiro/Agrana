@@ -1,0 +1,289 @@
+@import '../../../theme/variables.scss';
+@import '../../../theme/mixins.scss';
+
+// Base content styling
+.page-container {
+  @include app-container;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: var(--app-spacing-md);
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 60px);
+
+  @media (max-width: 768px) {
+    padding: var(--app-spacing-sm);
+  }
+}
+
+// Header section
+.header-section {
+  text-align: center;
+  margin-bottom: var(--app-spacing-xxl);
+  
+  .logo-container {
+    margin-bottom: var(--app-spacing-lg);
+    
+    .logo {
+      width: clamp(60px, 15vw, 80px);
+      height: clamp(60px, 15vw, 80px);
+      object-fit: contain;
+    }
+  }
+  
+  .page-title {
+    @include app-text-title;
+    font-size: clamp(var(--app-font-size-xl), 4vw, var(--app-font-size-xxl));
+    color: var(--ion-color-primary);
+    margin-bottom: var(--app-spacing-md);
+  }
+  
+  .page-subtitle {
+    @include app-text-subtitle;
+    font-size: clamp(var(--app-font-size-md), 2.5vw, var(--app-font-size-lg));
+    color: var(--ion-color-medium);
+    line-height: 1.6;
+    margin: 0;
+  }
+}
+
+// Form section
+.form-section {
+  margin-bottom: var(--app-spacing-lg);
+}
+
+.input-group {
+  margin-bottom: var(--app-spacing-lg);
+}
+
+.custom-input {
+  --background: var(--ion-color-light);
+  --border-radius: var(--app-border-radius-md);
+  --padding-start: var(--app-spacing-md);
+  --padding-end: var(--app-spacing-md);
+  box-shadow: var(--app-shadow-sm);
+  margin-bottom: var(--app-spacing-md);
+  
+  ion-icon {
+    color: var(--ion-color-primary);
+    margin-right: var(--app-spacing-sm);
+    font-size: var(--app-font-size-lg);
+  }
+  
+  ion-input {
+    --color: var(--ion-color-dark);
+    font-size: var(--app-font-size-md);
+    
+    &[disabled] {
+      --color: var(--ion-color-medium);
+      opacity: 0.7;
+    }
+  }
+}
+
+// Error message
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: var(--app-spacing-xs);
+  color: var(--ion-color-danger);
+  background: rgba(var(--ion-color-danger-rgb), 0.1);
+  padding: var(--app-spacing-sm) var(--app-spacing-md);
+  border-radius: var(--app-border-radius-sm);
+  margin-bottom: var(--app-spacing-md);
+  font-size: var(--app-font-size-sm);
+  
+  ion-icon {
+    font-size: var(--app-font-size-md);
+    flex-shrink: 0;
+  }
+}
+
+// Send button
+.send-btn {
+  @include app-button-primary;
+  margin-top: var(--app-spacing-md);
+  
+  ion-spinner {
+    margin-right: var(--app-spacing-xs);
+  }
+}
+
+// Success section
+.success-section {
+  text-align: center;
+  
+  .success-icon {
+    margin-bottom: var(--app-spacing-lg);
+    
+    ion-icon {
+      font-size: clamp(64px, 15vw, 80px);
+      color: var(--ion-color-success);
+    }
+  }
+  
+  .success-message {
+    margin-bottom: var(--app-spacing-xl);
+    
+    h2 {
+      color: var(--ion-color-success);
+      font-size: clamp(var(--app-font-size-lg), 3.5vw, var(--app-font-size-xl));
+      font-weight: 600;
+      margin-bottom: var(--app-spacing-sm);
+    }
+    
+    p {
+      color: var(--ion-color-medium);
+      font-size: var(--app-font-size-md);
+      line-height: 1.5;
+      margin: 0;
+    }
+  }
+  
+  .instructions {
+    background: var(--ion-color-light);
+    border-radius: var(--app-border-radius-md);
+    padding: var(--app-spacing-lg);
+    margin-bottom: var(--app-spacing-xl);
+    text-align: left;
+    box-shadow: var(--app-shadow-sm);
+    
+    h3 {
+      color: var(--ion-color-primary);
+      font-size: var(--app-font-size-lg);
+      font-weight: 600;
+      margin-bottom: var(--app-spacing-md);
+    }
+    
+    ol {
+      margin: 0;
+      padding-left: var(--app-spacing-lg);
+      
+      li {
+        color: var(--ion-color-dark);
+        font-size: var(--app-font-size-md);
+        line-height: 1.6;
+        margin-bottom: var(--app-spacing-xs);
+        
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+// Action buttons
+.action-buttons {
+  .resend-btn {
+    --border-radius: var(--app-border-radius-md);
+    --color: var(--ion-color-primary);
+    --border-color: var(--ion-color-primary);
+    height: 48px;
+    font-weight: 600;
+    margin-bottom: var(--app-spacing-md);
+    
+    &:hover:not([disabled]) {
+      --background: rgba(var(--ion-color-primary-rgb), 0.1);
+    }
+  }
+  
+  .back-btn {
+    @include app-button-primary;
+  }
+}
+
+// Help section
+.help-section {
+  background: var(--ion-color-light-shade);
+  border-radius: var(--app-border-radius-md);
+  padding: var(--app-spacing-lg);
+  margin-top: var(--app-spacing-xl);
+  
+  h3 {
+    color: var(--ion-color-primary);
+    font-size: var(--app-font-size-lg);
+    font-weight: 600;
+    margin-bottom: var(--app-spacing-md);
+  }
+  
+  ul {
+    margin: 0 0 var(--app-spacing-lg) 0;
+    padding-left: var(--app-spacing-lg);
+    
+    li {
+      color: var(--ion-color-dark);
+      font-size: var(--app-font-size-md);
+      line-height: 1.5;
+      margin-bottom: var(--app-spacing-xs);
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+  
+  .contact-support {
+    text-align: center;
+    border-top: 1px solid var(--ion-color-light-tint);
+    padding-top: var(--app-spacing-md);
+    
+    p {
+      color: var(--ion-color-medium);
+      font-size: var(--app-font-size-sm);
+      margin-bottom: var(--app-spacing-xs);
+    }
+    
+    ion-button {
+      --color: var(--ion-color-primary);
+      font-size: var(--app-font-size-sm);
+    }
+  }
+}
+
+// Content and header styling
+ion-content {
+  --background: var(--ion-color-light);
+}
+
+ion-header {
+  ion-toolbar {
+    --background: linear-gradient(135deg, var(--ion-color-primary) 0%, var(--ion-color-secondary) 100%);
+    --color: white;
+    
+    ion-title {
+      @include app-text-title;
+      color: white;
+      font-size: clamp(var(--app-font-size-lg), 2.5vw, var(--app-font-size-xl));
+    }
+    
+    ion-back-button {
+      --color: white;
+    }
+  }
+}
+
+// Responsive breakpoints
+@media (max-width: 480px) {
+  .page-container {
+    padding: var(--app-spacing-xs);
+  }
+  
+  .header-section {
+    margin-bottom: var(--app-spacing-lg);
+  }
+  
+  .success-section .instructions {
+    padding: var(--app-spacing-md);
+  }
+  
+  .help-section {
+    padding: var(--app-spacing-md);
+  }
+}
+
+@media (min-width: 768px) {
+  .page-container {
+    max-width: 600px;
+  }
+}

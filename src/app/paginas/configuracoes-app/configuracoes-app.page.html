@@ -1,0 +1,136 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Configurações do App</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/dashboard"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="page-container">
+    
+    <!-- Aparência Section -->
+    <div class="section-card">
+      <h2 class="section-title">
+        <ion-icon name="color-palette-outline"></ion-icon>
+        Aparência
+      </h2>
+
+      <ion-item lines="none" class="setting-item">
+        <ion-icon name="moon-outline" slot="start"></ion-icon>
+        <ion-label>Modo Escuro</ion-label>
+        <ion-toggle [(ngModel)]="settings.darkMode" slot="end"></ion-toggle>
+      </ion-item>
+
+      <ion-item lines="none" class="setting-item">
+        <ion-icon name="language-outline" slot="start"></ion-icon>
+        <ion-label>Idioma</ion-label>
+        <ion-select [(ngModel)]="settings.language" interface="popover" slot="end">
+          <ion-select-option *ngFor="let lang of languages" [value]="lang.code">
+            {{ lang.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+
+    <!-- Moeda e Formato Section -->
+    <div class="section-card">
+      <h2 class="section-title">
+        <ion-icon name="cash-outline"></ion-icon>
+        Moeda e Formato
+      </h2>
+
+      <ion-item lines="none" class="setting-item">
+        <ion-icon name="card-outline" slot="start"></ion-icon>
+        <ion-label>Moeda</ion-label>
+        <ion-select [(ngModel)]="settings.currency" interface="popover" slot="end">
+          <ion-select-option *ngFor="let currency of currencies" [value]="currency.code">
+            {{ currency.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item lines="none" class="setting-item">
+        <ion-icon name="calendar-outline" slot="start"></ion-icon>
+        <ion-label>Formato de Data</ion-label>
+        <ion-select [(ngModel)]="settings.dateFormat" interface="popover" slot="end">
+          <ion-select-option *ngFor="let format of dateFormats" [value]="format.code">
+            {{ format.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+
+    <!-- Notificações Section -->
+    <div class="section-card">
+      <h2 class="section-title">
+        <ion-icon name="notifications-outline"></ion-icon>
+        Notificações
+      </h2>
+
+      <ion-item lines="none" class="setting-item">
+        <ion-icon name="notifications-outline" slot="start"></ion-icon>
+        <ion-label>Notificações Push</ion-label>
+        <ion-toggle [(ngModel)]="settings.notifications" slot="end"></ion-toggle>
+      </ion-item>
+
+      <ion-item lines="none" class="setting-item">
+        <ion-icon name="volume-high-outline" slot="start"></ion-icon>
+        <ion-label>Sons</ion-label>
+        <ion-toggle [(ngModel)]="settings.sounds" slot="end"></ion-toggle>
+      </ion-item>
+
+      <ion-item lines="none" class="setting-item">
+        <ion-icon name="phone-portrait-outline" slot="start"></ion-icon>
+        <ion-label>Vibração</ion-label>
+        <ion-toggle [(ngModel)]="settings.vibration" slot="end"></ion-toggle>
+      </ion-item>
+    </div>
+
+    <!-- Backup Section -->
+    <div class="section-card">
+      <h2 class="section-title">
+        <ion-icon name="cloud-outline"></ion-icon>
+        Backup e Sincronização
+      </h2>
+
+      <ion-item lines="none" class="setting-item">
+        <ion-icon name="sync-outline" slot="start"></ion-icon>
+        <ion-label>Backup Automático</ion-label>
+        <ion-toggle [(ngModel)]="settings.autoBackup" slot="end"></ion-toggle>
+      </ion-item>
+
+      <ion-item lines="none" class="backup-item" button (click)="exportarBackup()">
+        <ion-icon name="cloud-upload-outline" slot="start"></ion-icon>
+        <ion-label>Exportar Backup</ion-label>
+        <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+      </ion-item>
+
+      <ion-item lines="none" class="backup-item" button (click)="importarBackup()">
+        <ion-icon name="cloud-download-outline" slot="start"></ion-icon>
+        <ion-label>Importar Backup</ion-label>
+        <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+      </ion-item>
+    </div>
+
+    <!-- Ações Section -->
+    <div class="section-card">
+      <h2 class="section-title">
+        <ion-icon name="settings-outline"></ion-icon>
+        Ações
+      </h2>
+
+      <ion-button expand="block" fill="solid" (click)="salvarConfiguracoes()" class="save-btn">
+        <ion-icon name="save-outline" slot="start"></ion-icon>
+        Salvar Configurações
+      </ion-button>
+
+      <ion-button expand="block" fill="outline" (click)="resetarConfiguracoes()" class="reset-btn">
+        <ion-icon name="refresh-outline" slot="start"></ion-icon>
+        Resetar para Padrão
+      </ion-button>
+    </div>
+
+  </div>
+</ion-content>

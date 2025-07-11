@@ -5,11 +5,10 @@
     <div class="header-content">
       <div class="user-greeting">
         <div class="greeting-text">
-          <h1>{{ getGreeting() }} 👋</h1>
-          <h2>{{ userName }}</h2>
+          <h1>{{ getGreeting() }}, {{ userName.split(' ')[0] }}</h1>
         </div>
-        <div class="user-avatar">
-          <ion-avatar>
+        <div class="user-avatar" (click)="toggleUserMenu()">
+          <ion-avatar class="clickable-avatar">
             <img src="https://ionicframework.com/docs/img/demos/avatar.svg" alt="User Avatar">
           </ion-avatar>
         </div>
@@ -186,148 +185,66 @@
             <ion-icon name="add" slot="start"></ion-icon>
             Adicionar Fundos
           </ion-button>
-          <ion-button fill="outline" size="small" class="view-goals-btn">
+            <ion-button fill="outline" size="small" class="view-goals-btn" (click)="goToGoals()">
             <ion-icon name="eye" slot="start"></ion-icon>
             Ver Metas
-          </ion-button>
+            </ion-button>
         </div>
       </div>
     </ion-card-content>
   </ion-card>
 
-  <!-- Card de Transações dos Últimos 7 Dias -->
-  <ion-card class="transactions-card">
-    <ion-card-content>
-      <h3>Transações dos Últimos 7 Dias</h3>
 
-      <div class="transaction-list">
-        <div class="transaction-item" *ngFor="let transaction of recentTransactions">
-          <div class="transaction-icon">
-            <ion-icon [name]="getTransactionIcon(transaction)"></ion-icon>
-          </div>
-          <div class="transaction-details">
-            <span class="transaction-name">{{ transaction.description }}</span>
-            <span class="transaction-date">{{ transaction.date | date:'dd/MM' }}</span>
-          </div>
-          <span class="transaction-amount" [class.positive]="transaction.amount > 0" [class.negative]="transaction.amount < 0">
-            {{ transaction.amount > 0 ? '+' : '' }}R${{ getAbsoluteValue(transaction.amount).toFixed(2) }}
-          </span>
-        </div>
-      </div>
-    </ion-card-content>
-  </ion-card>
-
-  <!-- Card para Gerenciar Finanças -->
-  <ion-card class="add-transaction-card">
-    <ion-card-content>
-      <div class="add-transaction-header">
-        <h3>Gerenciar Finanças</h3>
-        <p class="subtitle">Registre suas entradas e saídas de dinheiro</p>
-      </div>
-
-      <div class="transaction-buttons">
-        <ion-button expand="block" fill="solid" color="success" (click)="openTransactionForm('entrada')" class="transaction-btn">
-          <ion-icon name="arrow-down-outline" slot="start"></ion-icon>
-          Registrar Entrada
-        </ion-button>
-
-        <ion-button expand="block" fill="solid" color="danger" (click)="openTransactionForm('saida')" class="transaction-btn">
-          <ion-icon name="arrow-up-outline" slot="start"></ion-icon>
-          Registrar Saída
-        </ion-button>
-      </div>
-
-      <div class="add-transaction-form" *ngIf="showAddTransactionForm">
-        <div class="form-header">
-          <h4>{{ transactionType === 'entrada' ? '💰 Nova Entrada' : '💸 Nova Saída' }}</h4>
-          <ion-button fill="clear" (click)="closeTransactionForm()">
-            <ion-icon name="close-outline"></ion-icon>
-          </ion-button>
-        </div>
-
-        <ion-item>
-          <ion-label position="floating">Descrição</ion-label>
-          <ion-input
-            [(ngModel)]="newTransaction.name"
-            type="text"
-            [placeholder]="transactionType === 'entrada' ? 'Ex: Salário, Freelance, Vendas...' : 'Ex: Supermercado, Combustível, Conta de luz...'">
-          </ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label position="floating">Valor (R$)</ion-label>
-          <ion-input
-            [(ngModel)]="newTransaction.amount"
-            type="number"
-            step="0.01"
-            [placeholder]="transactionType === 'entrada' ? 'Quanto você recebeu?' : 'Quanto você gastou?'">
-          </ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label>Categoria</ion-label>
-          <ion-select
-            [(ngModel)]="newTransaction.category"
-            [placeholder]="transactionType === 'entrada' ? 'De onde veio este dinheiro?' : 'Em que você gastou?'">
-            <!-- Categorias de Entrada -->
-            <ion-select-option value="salario" *ngIf="transactionType === 'entrada'">💼 Salário</ion-select-option>
-            <ion-select-option value="freelance" *ngIf="transactionType === 'entrada'">💻 Freelance</ion-select-option>
-            <ion-select-option value="investimento" *ngIf="transactionType === 'entrada'">📈 Investimentos</ion-select-option>
-            <ion-select-option value="vendas" *ngIf="transactionType === 'entrada'">🛒 Vendas</ion-select-option>
-            <ion-select-option value="outros" *ngIf="transactionType === 'entrada'">💰 Outros</ion-select-option>
-
-            <!-- Categorias de Saída -->
-            <ion-select-option value="alimentacao" *ngIf="transactionType === 'saida'">🍔 Alimentação</ion-select-option>
-            <ion-select-option value="moradia" *ngIf="transactionType === 'saida'">🏠 Moradia</ion-select-option>
-            <ion-select-option value="transporte" *ngIf="transactionType === 'saida'">🚗 Transporte</ion-select-option>
-            <ion-select-option value="saude" *ngIf="transactionType === 'saida'">🏥 Saúde</ion-select-option>
-            <ion-select-option value="lazer" *ngIf="transactionType === 'saida'">🎮 Lazer</ion-select-option>
-            <ion-select-option value="educacao" *ngIf="transactionType === 'saida'">📚 Educação</ion-select-option>
-            <ion-select-option value="compras" *ngIf="transactionType === 'saida'">🛍️ Compras</ion-select-option>
-            <ion-select-option value="outros" *ngIf="transactionType === 'saida'">💸 Outros</ion-select-option>
-          </ion-select>
-        </ion-item>
-
-        <div class="form-buttons">
-          <ion-button fill="outline" (click)="cancelAddTransaction()">
-            Cancelar
-          </ion-button>
-          <ion-button (click)="saveNewTransaction()">
-            {{ transactionType === 'entrada' ? 'Registrar Entrada' : 'Registrar Saída' }}
-          </ion-button>
-        </div>
-      </div>
-    </ion-card-content>
-  </ion-card>
 
   <!-- Espaçamento para o menu inferior -->
   <div class="bottom-spacing"></div>
 </ion-content>
 
-<!-- Menu Inferior Fixo -->
-<div class="fixed-bottom-menu">
-  <div class="menu-item active">
-    <ion-icon name="home"></ion-icon>
-    <span>Início</span>
-  </div>
+<!-- Menu Lateral do Usuário -->
+<div class="user-menu-overlay" [class.active]="showUserMenu" (click)="closeUserMenu()">
+  <div class="user-menu-panel" (click)="$event.stopPropagation()">
+    <!-- Header do Menu -->
+    <div class="user-menu-header">
+      <div class="user-info">
+        <ion-avatar class="menu-avatar">
+          <img src="https://ionicframework.com/docs/img/demos/avatar.svg" alt="User Avatar">
+        </ion-avatar>
+        <div class="user-details">
+          <h3>{{ userName }}</h3>
+          <p>{{ userEmail }}</p>
+        </div>
+      </div>
+      <ion-button fill="clear" class="close-btn" (click)="closeUserMenu()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </div>
 
-  <div class="menu-item">
-    <ion-icon name="stats-chart"></ion-icon>
-    <span>Relatórios</span>
-  </div>
+    <!-- Opções do Menu -->
+    <div class="user-menu-options">
+      <div class="menu-option" (click)="openAccountSettings()">
+        <ion-icon name="person-outline"></ion-icon>
+        <span>Configurações da Conta</span>
+        <ion-icon name="chevron-forward-outline" class="option-arrow"></ion-icon>
+      </div>
 
-  <div class="menu-item">
-    <ion-icon name="card"></ion-icon>
-    <span>Cartões</span>
-  </div>
+      <div class="menu-option" (click)="openAppSettings()">
+        <ion-icon name="settings-outline"></ion-icon>
+        <span>Configurações do App</span>
+        <ion-icon name="chevron-forward-outline" class="option-arrow"></ion-icon>
+      </div>
 
-  <div class="menu-item">
-    <ion-icon name="settings"></ion-icon>
-    <span>Config</span>
-  </div>
+      <div class="menu-option" (click)="openHelp()">
+        <ion-icon name="help-circle-outline"></ion-icon>
+        <span>Ajuda e Suporte</span>
+        <ion-icon name="chevron-forward-outline" class="option-arrow"></ion-icon>
+      </div>
 
-  <div class="menu-item" (click)="logout()">
-    <ion-icon name="log-out"></ion-icon>
-    <span>Sair</span>
+      <div class="menu-divider"></div>
+
+      <div class="menu-option logout-option" (click)="logout()">
+        <ion-icon name="log-out-outline"></ion-icon>
+        <span>Sair da Conta</span>
+      </div>
+    </div>
   </div>
 </div>

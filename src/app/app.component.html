@@ -1,3 +1,56 @@
 <ion-app>
   <ion-router-outlet></ion-router-outlet>
+  
+  <!-- Menu Inferior Global -->
+  <div class="global-bottom-menu" *ngIf="showBottomMenu">
+    <!-- 1. Home / Dashboard -->
+    <div class="menu-item" [class.active]="currentRoute === '/dashboard'" (click)="navigateTo('/dashboard')">
+      <ion-icon name="home"></ion-icon>
+      <span>Home</span>
+    </div>
+    
+    <!-- 2. Transações -->
+    <div class="menu-item" [class.active]="currentRoute === '/transacoes'" (click)="navigateTo('/transacoes')">
+      <ion-icon name="swap-vertical"></ion-icon>
+      <span>Transações</span>
+    </div>
+    
+    <!-- 3. Botão Central de Adicionar Finanças -->
+    <div class="menu-item center-button" (click)="toggleFinanceMenu()">
+      <div class="floating-action-button" [class.active]="showFinanceMenu">
+        <div class="fab-background"></div>
+        <ion-icon [name]="showFinanceMenu ? 'close' : 'add'" class="fab-icon"></ion-icon>
+      </div>
+    </div>
+    
+    <!-- 4. Configurações / Perfil -->
+    <div class="menu-item" [class.active]="currentRoute === '/metas'" (click)="navigateTo('/metas')">
+      <ion-icon name="trophy"></ion-icon>
+      <span>Metas</span>
+    </div>
+    
+    <!-- 5. Relatórios -->
+    <div class="menu-item" [class.active]="currentRoute === '/relatorio'" (click)="navigateTo('/relatorio')">
+      <ion-icon name="stats-chart"></ion-icon>
+      <span>Relatórios</span>
+    </div>
+  </div>
+  
+  <!-- Botões Flutuantes de Finanças -->
+  <div class="finance-floating-buttons" [class.active]="showFinanceMenu">
+    <div class="floating-button income-btn" (click)="openFinanceForm('entrada')">
+      <div class="btn-background"></div>
+      <ion-icon name="add" class="btn-icon"></ion-icon>
+      <span class="btn-label">Entrada</span>
+    </div>
+    
+    <div class="floating-button expense-btn" (click)="openFinanceForm('saida')">
+      <div class="btn-background"></div>
+      <ion-icon name="remove" class="btn-icon"></ion-icon>
+      <span class="btn-label">Saída</span>
+    </div>
+  </div>
+  
+  <!-- Overlay para fechar o menu -->
+  <div class="finance-menu-overlay" [class.active]="showFinanceMenu" (click)="closeFinanceMenu()"></div>
 </ion-app>

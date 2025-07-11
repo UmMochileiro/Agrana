@@ -46,7 +46,10 @@ import {
   eye,
   trendingUp,
   add,
-  swapHorizontalOutline
+  swapHorizontalOutline,
+  chevronForwardOutline,
+  helpCircleOutline,
+  logOutOutline
 } from 'ionicons/icons';
 
 @Component({
@@ -111,6 +114,9 @@ export class DashboardPage implements OnInit, OnDestroy {
     category: ''
   };
 
+  // Controle do menu do usuário
+  showUserMenu = false;
+
   constructor(
     private authService: AuthService,
     private financialService: FinancialService,
@@ -143,7 +149,10 @@ export class DashboardPage implements OnInit, OnDestroy {
       personOutline,
       homeSharp,
       ellipseOutline,
-      swapHorizontalOutline
+      swapHorizontalOutline,
+      chevronForwardOutline,
+      helpCircleOutline,
+      logOutOutline
     });
   }
 
@@ -152,10 +161,14 @@ export class DashboardPage implements OnInit, OnDestroy {
     this.loadUserData();
     // Carregar dados financeiros consolidados
     this.loadFinancialData();
+    // Escutar eventos do menu inferior global
+    this.setupGlobalMenuListener();
   }
 
   ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe());
+    // Remover listener do evento global
+    window.removeEventListener('openFinanceForm', this.handleOpenFinanceForm);
   }
 
   private loadUserData() {
@@ -358,8 +371,38 @@ export class DashboardPage implements OnInit, OnDestroy {
     }
   }
 
+  // Métodos do menu do usuário
+  toggleUserMenu() {
+    this.showUserMenu = !this.showUserMenu;
+  }
+
+  closeUserMenu() {
+    this.showUserMenu = false;
+  }
+
+  openAccountSettings() {
+    this.closeUserMenu();
+    this.router.navigate(['/configuracoes-conta']);
+  }
+
+  openAppSettings() {
+    this.closeUserMenu();
+    this.router.navigate(['/configuracoes-app']);
+  }
+
+  openHelp() {
+    this.closeUserMenu();
+    this.router.navigate(['/ajuda-suporte']);
+  }
+
+  // Método para navegar para página de metas
+  goToGoals() {
+    this.router.navigate(['/metas']);
+  }
+
   // Método para logout
   async logout() {
+    this.closeUserMenu();
     try {
       await this.authService.logout();
       this.router.navigate(['/login']);
@@ -378,4 +421,16 @@ export class DashboardPage implements OnInit, OnDestroy {
       return 'swap-horizontal-outline';
     }
   }
+
+  private setupGlobalMenuListener() {
+    // Bind do método para manter o contexto correto
+    this.handleOpenFinanceForm = this.handleOpenFinanceForm.bind(this);
+    // Adicionar listener para eventos do menu inferior global
+    window.addEventListener('openFinanceForm', this.handleOpenFinanceForm);
+  }
+
+  private handleOpenFinanceForm = (event: any) => {
+    const { type } = event.detail;
+    this.openTransactionForm(type);
+  };
 }

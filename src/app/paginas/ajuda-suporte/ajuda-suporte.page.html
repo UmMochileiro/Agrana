@@ -1,0 +1,132 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Ajuda e Suporte</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/dashboard"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="page-container">
+    
+    <!-- Tutorial Section -->
+    <div class="section-card">
+      <h2 class="section-title">
+        <ion-icon name="play-circle-outline"></ion-icon>
+        Tutorial
+      </h2>
+
+      <ion-item lines="none" class="tutorial-item" button (click)="abrirTutorial()">
+        <ion-icon name="videocam-outline" slot="start"></ion-icon>
+        <ion-label>
+          <h3>Como usar o Agrana</h3>
+          <p>Aprenda os recursos básicos do aplicativo</p>
+        </ion-label>
+        <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+      </ion-item>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="section-card">
+      <h2 class="section-title">
+        <ion-icon name="help-circle-outline"></ion-icon>
+        Perguntas Frequentes
+      </h2>
+
+      <div class="faq-list">
+        <div *ngFor="let faq of faqs; let i = index" class="faq-item">
+          <div class="faq-question" (click)="toggleFaq(i)">
+            <span>{{ faq.question }}</span>
+            <ion-icon [name]="faq.expanded ? 'chevron-up-outline' : 'chevron-down-outline'"></ion-icon>
+          </div>
+          <div class="faq-answer" [class.expanded]="faq.expanded">
+            <p>{{ faq.answer }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contato Section -->
+    <div class="section-card">
+      <h2 class="section-title">
+        <ion-icon name="chatbubbles-outline"></ion-icon>
+        Fale Conosco
+      </h2>
+
+      <div class="contact-options">
+        <ion-button expand="block" fill="outline" (click)="abrirWhatsapp()" class="contact-btn whatsapp">
+          <ion-icon name="logo-whatsapp" slot="start"></ion-icon>
+          WhatsApp
+        </ion-button>
+
+        <ion-button expand="block" fill="outline" (click)="abrirEmail()" class="contact-btn email">
+          <ion-icon name="mail-outline" slot="start"></ion-icon>
+          Email
+        </ion-button>
+      </div>
+    </div>
+
+    <!-- Formulário de Suporte -->
+    <div class="section-card">
+      <h2 class="section-title">
+        <ion-icon name="create-outline"></ion-icon>
+        Enviar Mensagem
+      </h2>
+
+      <ion-item lines="none" class="form-item">
+        <ion-label position="stacked">Tipo</ion-label>
+        <ion-select [(ngModel)]="supportMessage.type" interface="popover">
+          <ion-select-option value="feedback">Feedback</ion-select-option>
+          <ion-select-option value="bug">Reportar Bug</ion-select-option>
+          <ion-select-option value="suggestion">Sugestão</ion-select-option>
+          <ion-select-option value="help">Ajuda</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item lines="none" class="form-item">
+        <ion-label position="stacked">Email</ion-label>
+        <ion-input [(ngModel)]="supportMessage.email" type="email" placeholder="seu.email@exemplo.com"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none" class="form-item">
+        <ion-label position="stacked">Assunto</ion-label>
+        <ion-input [(ngModel)]="supportMessage.subject" placeholder="Descreva brevemente o assunto"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none" class="form-item textarea">
+        <ion-label position="stacked">Mensagem</ion-label>
+        <ion-textarea [(ngModel)]="supportMessage.message" placeholder="Descreva detalhadamente sua dúvida, problema ou sugestão..." rows="4"></ion-textarea>
+      </ion-item>
+
+      <ion-button expand="block" fill="solid" (click)="enviarSuporte()" class="send-btn">
+        <ion-icon name="send-outline" slot="start"></ion-icon>
+        Enviar Mensagem
+      </ion-button>
+    </div>
+
+    <!-- Informações Section -->
+    <div class="section-card info-card">
+      <h2 class="section-title">
+        <ion-icon name="information-circle-outline"></ion-icon>
+        Informações do App
+      </h2>
+
+      <div class="app-info">
+        <div class="info-item">
+          <span class="label">Versão:</span>
+          <span class="value">1.0.0</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Última atualização:</span>
+          <span class="value">Janeiro 2024</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Desenvolvido por:</span>
+          <span class="value">Equipe Agrana</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</ion-content>
