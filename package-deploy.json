@@ -1,0 +1,14 @@
+{
+  "name": "agrana-deploy",
+  "version": "1.0.0",
+  "description": "Agrana production deploy",
+  "scripts": {
+    "start": "npx serve -s www -l 4200 --cors --single"
+  },
+  "dependencies": {
+    "serve": "^14.2.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
