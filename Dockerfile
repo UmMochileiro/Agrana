@@ -1,6 +1,9 @@
 # Dockerfile para EasyPanel
 FROM node:18-alpine
 
+# Instalar curl para health check
+RUN apk add --no-cache curl
+
 # Definir diretório de trabalho
 WORKDIR /app
 
@@ -26,5 +29,5 @@ EXPOSE 4200
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD curl -f http://localhost:4200/ || exit 1
 
-# Comando para iniciar
-CMD ["serve", "-s", "www", "-l", "4200", "--cors", "--host", "0.0.0.0"]
+# Comando para iniciar (serve automaticamente escuta em 0.0.0.0)
+CMD ["serve", "-s", "www", "-l", "4200", "--cors"]
