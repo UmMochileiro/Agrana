@@ -1,17 +1,29 @@
-# Dockerfile para EasyPanel
-FROM node:18-alpine
+# Dockerfile para EasyPanel - Versão Simples
+FROM nginx:alpine
 
-# Instalar curl para health check
-RUN apk add --no-cache curl
+# Copia arquivos de build para servir na raiz e subpasta /agrana/
+COPY www /usr/share/nginx/html
+COPY www /usr/share/nginx/html/agrana
 
-# Definir diretório de trabalho
-WORKDIR /app
+# Configuração do Nginx
+RUN echo 'server { \
+    listen 80; \
+    server_name _; \
+    root /usr/share/nginx/html; \
+    index index.html; \
+    location / { \
+        try_files $uri $uri/ /index.html; \
+        add_header Cache-Control "no-cache"; \
+    } \
+    location /agrana/ { \
+        try_files $uri $uri/ /agrana/index.html; \
+        add_header Cache-Control "no-cache"; \
+    } \
+    add_header Access-Control-Allow-Origin "*" always; \
+}' > /etc/nginx/conf.d/default.conf
 
-# Copiar package files
-COPY package*.json ./
-
-# Instalar dependências
-RUN npm install
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
 
 # Copiar código fonte
 COPY . .
