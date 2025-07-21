@@ -19,6 +19,9 @@ COPY . .
 # Build da aplicação
 RUN npm run build:deploy
 
+# Verificar se os arquivos foram criados
+RUN ls -la www/ || echo "www directory not found"
+
 # Instalar serve globalmente
 RUN npm install -g serve
 
@@ -30,4 +33,4 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD curl -f http://localhost:4200/ || exit 1
 
 # Comando para iniciar (serve automaticamente escuta em 0.0.0.0)
-CMD ["serve", "-s", "www", "-l", "4200", "--cors"]
+CMD ["serve", "-s", "www", "-l", "4200", "--cors", "--single"]

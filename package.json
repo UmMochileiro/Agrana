@@ -13,7 +13,7 @@
     "build": "npx ng build",
     "build:prod": "npx ng build --configuration production",
     "build:deploy": "npx ng build --configuration production --base-href=/agrana/ && npm run copy:htaccess",
-    "copy:htaccess": "cp .htaccess www/.htaccess 2>/dev/null || true",
+    "copy:htaccess": "powershell -Command \"if (Test-Path '.htaccess') { Copy-Item '.htaccess' 'www/.htaccess' }\" || cp .htaccess www/.htaccess 2>/dev/null || echo 'htaccess copy attempted'",
     "watch": "npx ng build --watch --configuration development",
     "test": "npx ng test",
     "lint": "npx ng lint",
