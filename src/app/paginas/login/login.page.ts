@@ -15,7 +15,7 @@ import {
   IonCardContent,
   IonCardHeader,
   IonCardTitle,
-  IonText,
+  IonIcon,
   ToastController,
   MenuController
 } from '@ionic/angular/standalone';
@@ -39,7 +39,7 @@ import { AuthService } from '../../services/auth.service';
     IonCardContent,
     IonCardHeader,
     IonCardTitle,
-    IonText,
+    IonIcon,
     CommonModule, 
     FormsModule,
     RouterLink

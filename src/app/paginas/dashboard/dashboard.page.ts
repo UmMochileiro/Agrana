@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
@@ -8,70 +8,53 @@ import { DatabaseService, Transaction, Account, Category } from '../../services/
 import { Observable, Subscription } from 'rxjs';
 import { 
   IonContent, 
+  IonHeader, 
+  IonTitle, 
+  IonToolbar, 
   IonCard, 
   IonCardContent, 
-  IonItem, 
-  IonLabel, 
   IonButton, 
   IonIcon, 
-  IonAvatar,
-  IonInput,
-  IonSelect,
-  IonSelectOption
+  IonAvatar, 
+  IonModal, 
+  IonItem, 
+  IonLabel, 
+  IonSelect, 
+  IonSelectOption, 
+  IonInput, 
+  IonButtons, 
+  IonList, 
+  IonPopover 
 } from '@ionic/angular/standalone';
-import { addIcons } from 'ionicons';
-import { 
-  homeOutline, 
-  callOutline, 
-  settingsOutline, 
-  personOutline, 
-  trendingUpOutline,
-  carOutline,
-  restaurantOutline,
-  homeSharp,
-  cardOutline,
-  addOutline,
-  ellipseOutline, 
-  walletOutline, 
-  arrowUpOutline, 
-  arrowDownOutline, 
-  trendingDownOutline,
-  home,
-  statsChart,
-  card,
-  settings,
-  logOut,
-  closeOutline, 
-  ellipsisHorizontal, 
-  eye,
-  trendingUp,
-  add,
-  swapHorizontalOutline,
-  chevronForwardOutline,
-  helpCircleOutline,
-  logOutOutline
-} from 'ionicons/icons';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
   styleUrls: ['./dashboard.page.scss'],
   standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
-    IonContent, 
-    IonCard, 
-    IonCardContent, 
-    IonItem, 
-    IonLabel, 
-    IonButton, 
-    IonIcon, 
-    IonAvatar,
-    IonInput,
-    IonSelect,
-    IonSelectOption,
     CommonModule, 
     FormsModule,
-    RouterLink
+    RouterLink,
+    IonContent, 
+    IonHeader, 
+    IonTitle, 
+    IonToolbar, 
+    IonCard, 
+    IonCardContent, 
+    IonButton, 
+    IonIcon, 
+    IonAvatar, 
+    IonModal, 
+    IonItem, 
+    IonLabel, 
+    IonSelect, 
+    IonSelectOption, 
+    IonInput, 
+    IonButtons, 
+    IonList, 
+    IonPopover
   ]
 })
 export class DashboardPage implements OnInit, OnDestroy {
@@ -87,7 +70,7 @@ export class DashboardPage implements OnInit, OnDestroy {
   // Subscriptions para limpar memória
   private subscriptions: Subscription[] = [];
   
-  // Dados do dashboard (calculados a partir dos dados reais)
+  // Dados do dashboard (calculados dinamicamente)
   totalBalance = 0;
   checking = 0;
   savings = 0;
@@ -99,11 +82,11 @@ export class DashboardPage implements OnInit, OnDestroy {
   transportation = 0;
   others = 0;
   
-  savingsGoal = 5000; // Valor padrão para teste
-  savingsProgress = 1500; // Valor padrão para teste
+  savingsGoal = 0;
+  savingsProgress = 0;
   savingsPercentage = 0;
   
-  recentTransactions: Transaction[] = [];
+  recentTransactions: any[] = [];
 
   // Controle do formulário de nova transação
   showAddTransactionForm = false;
@@ -122,39 +105,7 @@ export class DashboardPage implements OnInit, OnDestroy {
     private financialService: FinancialService,
     private databaseService: DatabaseService,
     private router: Router
-  ) {
-    addIcons({
-      walletOutline,
-      arrowUpOutline,
-      arrowDownOutline,
-      addOutline,
-      cardOutline,
-      trendingUpOutline,
-      trendingDownOutline,
-      homeOutline,
-      restaurantOutline,
-      carOutline,
-      trendingUp,
-      ellipsisHorizontal,
-      add,
-      eye,
-      closeOutline,
-      home,
-      statsChart,
-      card,
-      settings,
-      logOut,
-      callOutline,
-      settingsOutline,
-      personOutline,
-      homeSharp,
-      ellipseOutline,
-      swapHorizontalOutline,
-      chevronForwardOutline,
-      helpCircleOutline,
-      logOutOutline
-    });
-  }
+  ) {}
 
   ngOnInit() {
     // Obter dados do usuário autenticado
@@ -231,15 +182,7 @@ export class DashboardPage implements OnInit, OnDestroy {
   }
 
   private getCategoryExpense(data: DashboardData, categoryName: string): number {
-    const category = data.categories.find(cat => cat.name === categoryName);
-    if (!category) return 0;
-    
-    return data.categoryExpenses.get(category.id!) || 0;
-  }
-
-  // Método para calcular valor absoluto
-  getAbsoluteValue(value: number): number {
-    return Math.abs(value);
+    return data.categoryExpenses.get(categoryName) || 0;
   }
 
   // Método para obter saudação personalizada
@@ -266,102 +209,12 @@ export class DashboardPage implements OnInit, OnDestroy {
     this.resetNewTransactionForm();
   }
 
-  async saveNewTransaction() {
-    if (!this.newTransaction.name || !this.newTransaction.amount) {
-      console.error('Nome e valor são obrigatórios');
-      return;
-    }
-
-    if (!this.dashboardData) {
-      console.error('Dados do dashboard não carregados');
-      return;
-    }
-
-    // Encontrar conta padrão (primeira conta ativa)
-    const defaultAccount = this.dashboardData.accounts.find(acc => acc.isActive);
-    if (!defaultAccount) {
-      console.error('Nenhuma conta encontrada');
-      return;
-    }
-
-    // Encontrar categoria
-    const categoryName = this.getCategoryNameFromValue(this.newTransaction.category);
-    const category = this.dashboardData.categories.find(cat => 
-      cat.name.toLowerCase() === categoryName.toLowerCase() && 
-      cat.type === (this.transactionType === 'entrada' ? 'income' : 'expense')
-    );
-
-    if (!category) {
-      console.error('Categoria não encontrada');
-      return;
-    }
-
-    const amount = this.transactionType === 'entrada' 
-      ? Math.abs(this.newTransaction.amount) 
-      : Math.abs(this.newTransaction.amount);
-
-    try {
-      await this.financialService.addTransaction(
-        defaultAccount.id!,
-        category.id!,
-        amount,
-        this.transactionType === 'entrada' ? 'income' : 'expense',
-        this.newTransaction.name
-      );
-      
-      // Resetar formulário e esconder
-      this.showAddTransactionForm = false;
-      this.resetNewTransactionForm();
-      
-      console.log('Transação adicionada com sucesso!');
-    } catch (error) {
-      console.error('Erro ao adicionar transação:', error);
-    }
-  }
-
-  private getCategoryNameFromValue(categoryValue: string): string {
-    const categoryMap: { [key: string]: string } = {
-      'salario': 'Salário',
-      'freelance': 'Freelance',
-      'investimento': 'Investimentos',
-      'vendas': 'Vendas',
-      'outros': 'Outros',
-      'alimentacao': 'Alimentação',
-      'moradia': 'Moradia',
-      'transporte': 'Transporte',
-      'saude': 'Saúde',
-      'lazer': 'Lazer',
-      'educacao': 'Educação',
-      'compras': 'Compras'
-    };
-    
-    return categoryMap[categoryValue] || 'Outros';
-  }
-
   private resetNewTransactionForm() {
     this.newTransaction = {
       name: '',
       amount: 0,
       category: ''
     };
-  }
-
-  // Métodos para porcentagem de poupança
-  calculateSavingsPercentage(): number {
-    if (this.savingsGoal <= 0) return 0;
-    const percentage = (this.savingsProgress / this.savingsGoal) * 100;
-    return Math.min(Math.max(percentage, 0), 100);
-  }
-
-  getSavingsPercentageFormatted(): string {
-    const percentage = this.calculateSavingsPercentage();
-    return Math.round(percentage).toString();
-  }
-
-  // Métodos de navegação
-  cancelAddTransaction() {
-    this.showAddTransactionForm = false;
-    this.resetNewTransactionForm();
   }
 
   toggleAddTransactionForm() {
@@ -371,38 +224,31 @@ export class DashboardPage implements OnInit, OnDestroy {
     }
   }
 
-  // Métodos do menu do usuário
   toggleUserMenu() {
     this.showUserMenu = !this.showUserMenu;
   }
 
-  closeUserMenu() {
-    this.showUserMenu = false;
+  // Métodos para navegação
+  goToTransactions() {
+    this.router.navigate(['/transacoes']);
   }
 
-  openAccountSettings() {
-    this.closeUserMenu();
-    this.router.navigate(['/configuracoes-conta']);
-  }
-
-  openAppSettings() {
-    this.closeUserMenu();
+  goToSettings() {
     this.router.navigate(['/configuracoes-app']);
   }
 
-  openHelp() {
-    this.closeUserMenu();
-    this.router.navigate(['/ajuda-suporte']);
+  // Listeners de eventos globais
+  private setupGlobalMenuListener() {
+    window.addEventListener('openFinanceForm', this.handleOpenFinanceForm);
   }
 
-  // Método para navegar para página de metas
-  goToGoals() {
-    this.router.navigate(['/metas']);
-  }
+  private handleOpenFinanceForm = (event: any) => {
+    const formType = event.detail?.type || 'entrada';
+    this.openTransactionForm(formType);
+  };
 
-  // Método para logout
+  // Logout
   async logout() {
-    this.closeUserMenu();
     try {
       await this.authService.logout();
       this.router.navigate(['/login']);
@@ -410,27 +256,4 @@ export class DashboardPage implements OnInit, OnDestroy {
       console.error('Erro ao fazer logout:', error);
     }
   }
-
-  // Método para obter ícone da transação
-  getTransactionIcon(transaction: Transaction): string {
-    if (transaction.type === 'income') {
-      return 'arrow-up-outline';
-    } else if (transaction.type === 'expense') {
-      return 'arrow-down-outline';
-    } else {
-      return 'swap-horizontal-outline';
-    }
-  }
-
-  private setupGlobalMenuListener() {
-    // Bind do método para manter o contexto correto
-    this.handleOpenFinanceForm = this.handleOpenFinanceForm.bind(this);
-    // Adicionar listener para eventos do menu inferior global
-    window.addEventListener('openFinanceForm', this.handleOpenFinanceForm);
-  }
-
-  private handleOpenFinanceForm = (event: any) => {
-    const { type } = event.detail;
-    this.openTransactionForm(type);
-  };
 }

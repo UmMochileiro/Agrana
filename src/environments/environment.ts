@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  baseUrl: 'http://localhost:4200',
   firebase: {
     apiKey: 'AIzaSyBKoDe1Ajt6jDX96WZKC4v-ZmXMw0aoWVs',
     authDomain: 'agrana-1e39a.firebaseapp.com',

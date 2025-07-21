@@ -19,6 +19,11 @@
     </ion-toolbar>
   </ion-header>
 
+  <!-- Pull to refresh -->
+  <ion-refresher slot="fixed" (ionRefresh)="refreshTransactions($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <!-- Resumo das Transações -->
   <div class="summary-cards">
     <ion-card class="summary-card income">
@@ -27,7 +32,7 @@
           <ion-icon name="trending-up"></ion-icon>
           <span class="card-title">Entradas</span>
         </div>
-        <div class="card-amount positive">+R$ 3.250,00</div>
+        <div class="card-amount positive">+R$ {{ getTotalIncome() | number:'1.2-2' }}</div>
         <div class="card-period">Este mês</div>
       </ion-card-content>
     </ion-card>
@@ -36,17 +41,34 @@
       <ion-card-content>
         <div class="card-header">
           <ion-icon name="trending-down"></ion-icon>
-          <span class="card-title">Saídas</span>
+          <span class="card-title">Despesas do Mês</span>
         </div>
-        <div class="card-amount negative">-R$ 2.180,00</div>
-        <div class="card-period">Este mês</div>
+        <div class="card-amount negative">-R$ {{ getCurrentMonthExpensesTotal() | number:'1.2-2' }}</div>
+        <div class="card-period">
+          <span class="top-category">Maior gasto: {{ getTopExpenseCategory() }}</span>
+        </div>
+        
+        <!-- Análise por categoria -->
+        <div class="expenses-breakdown" *ngIf="getExpensesByCategory().length > 0">
+          <div class="breakdown-title">Principais categorias:</div>
+          <div class="category-item" *ngFor="let category of getExpensesByCategory()">
+            <div class="category-info">
+              <span class="category-name">{{ category.category }}</span>
+              <span class="category-amount">R$ {{ category.amount | number:'1.2-2' }}</span>
+            </div>
+            <div class="category-bar">
+              <div class="category-fill" [style.width.%]="category.percentage"></div>
+            </div>
+            <span class="category-percentage">{{ formatPercentage(category.percentage) }}</span>
+          </div>
+        </div>
       </ion-card-content>
     </ion-card>
   </div>
 
   <!-- Filtros Rápidos -->
   <div class="quick-filters">
-    <ion-segment value="todas" color="primary">
+    <ion-segment [value]="selectedFilter" color="primary" (ionChange)="filterTransactions($event.detail.value)">
       <ion-segment-button value="todas">
         <ion-label>Todas</ion-label>
       </ion-segment-button>
@@ -65,27 +87,50 @@
       <ion-card-title>Histórico de Transações</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <div class="transaction-item" *ngFor="let transaction of transactions">
-        <div class="transaction-icon" [ngClass]="transaction.type">
-          <ion-icon [name]="getTransactionIcon(transaction.type)"></ion-icon>
-        </div>
-        <div class="transaction-details">
-          <div class="transaction-name">{{ transaction.name }}</div>
-          <div class="transaction-category">{{ transaction.category }}</div>
-          <div class="transaction-date">{{ transaction.date | date:'dd/MM/yyyy' }}</div>
-        </div>
-        <div class="transaction-amount" [ngClass]="transaction.type">
-          {{ transaction.type === 'income' ? '+' : '-' }}R$ {{ transaction.amount | number:'1.2-2' }}
-        </div>
+      <!-- Loading state -->
+      <div *ngIf="isLoading" class="loading-container">
+        <ion-spinner color="primary"></ion-spinner>
+        <p>Carregando transações...</p>
       </div>
 
-      <div class="empty-state" *ngIf="transactions.length === 0">
-        <ion-icon name="receipt-outline"></ion-icon>
-        <h3>Nenhuma transação encontrada</h3>
-        <p>Suas transações aparecerão aqui quando você começar a usar o app.</p>
-        <ion-button fill="solid" color="primary">
-          <ion-icon name="add" slot="start"></ion-icon>
-          Adicionar Primeira Transação
+      <!-- Transações -->
+      <div *ngIf="!isLoading">
+        <div class="transaction-item" *ngFor="let transaction of filteredTransactions">
+          <div class="transaction-icon" [ngClass]="transaction.type">
+            <ion-icon [name]="getTransactionIcon(transaction.type)"></ion-icon>
+          </div>
+          <div class="transaction-details">
+            <div class="transaction-name">{{ transaction.name }}</div>
+            <div class="transaction-category">{{ transaction.category }}</div>
+            <div class="transaction-bank" *ngIf="transaction.bankName">{{ transaction.bankName }}</div>
+            <div class="transaction-date">{{ transaction.date | date:'dd/MM/yyyy' }}</div>
+          </div>
+          <div class="transaction-amount" [ngClass]="transaction.type">
+            {{ transaction.type === 'income' ? '+' : '-' }}R$ {{ transaction.amount | number:'1.2-2' }}
+          </div>
+        </div>
+
+        <div class="empty-state" *ngIf="filteredTransactions.length === 0">
+          <ion-icon name="receipt-outline"></ion-icon>
+          <h3>Nenhuma transação encontrada</h3>
+          <p>Suas transações da API do Pluggy aparecerão aqui.</p>
+          <ion-button fill="solid" color="primary" (click)="loadTransactions()">
+            <ion-icon name="refresh" slot="start"></ion-icon>
+            Recarregar Transações
+          </ion-button>
+        </div>
+      </div>
+      
+      <!-- Botão para Teste de Transação -->
+      <div class="test-section">
+        <ion-button 
+          expand="block" 
+          fill="outline" 
+          color="secondary" 
+          (click)="testRandomTransaction()"
+          class="test-btn">
+          <ion-icon name="flask" slot="start"></ion-icon>
+          Testar Transação Aleatória Pluggy
         </ion-button>
       </div>
     </ion-card-content>

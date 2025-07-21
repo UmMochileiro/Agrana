@@ -1,184 +1,55 @@
-@import '../../../theme/variables.scss';
-
+// Dashboard principal
 .dashboard-content {
-  --background: var(--ion-color-light);
+  background: #f8f9fa;
   padding: 0;
-  overflow-x: hidden;
-  
-  // Garantir que o conteúdo se ajuste automaticamente
-  ion-card {
-    margin: 16px;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    
-    // Garantir que o texto não saia das bordas
-    ion-card-content {
-      padding: 16px;
-      
-      * {
-        box-sizing: border-box;
-      }
-    }
-  }
-  
-  // Melhorar a legibilidade dos textos
-  h1, h2, h3, h4, h5, h6 {
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    hyphens: auto;
-    line-height: 1.4;
-  }
-  
-  p, span, label {
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    line-height: 1.5;
-  }
-  
-  // Garantir que inputs e selects sejam responsivos
-  ion-input, ion-select {
-    --padding-start: 12px;
-    --padding-end: 12px;
-    font-size: 16px;
-    
-    @media (max-width: 480px) {
-      font-size: 14px;
-    }
-  }
-  
-  // Melhorar contraste e visibilidade
-  ion-label {
-    --color: var(--ion-color-dark);
-    font-weight: 500;
-  }
-  
-  // Espaçamento consistente para formulários
-  ion-item {
-    --padding-start: 0;
-    --padding-end: 0;
-    margin-bottom: 16px;
-    
-    --background: transparent;
-    --border-color: #e0e0e0;
-    --border-radius: 8px;
-    --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
 }
 
-// Header Moderno
+// Header moderno
 .modern-header {
-  position: relative;
-  padding: 60px 20px 40px;
-  background: linear-gradient(135deg, var(--ion-color-primary) 0%, var(--ion-color-secondary) 100%);
+  background: linear-gradient(135deg, var(--ion-color-primary), var(--ion-color-secondary));
   color: white;
-  overflow: hidden;
+  padding: 60px 20px 40px;
+  position: relative;
   
   .header-content {
-    position: relative;
-    z-index: 2;
-  }
-  
-  .user-greeting {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-    gap: 12px;
-    
-    .greeting-text {
-      flex: 1;
-      min-width: 0;
+    .user-greeting {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
       
-      h1 {
+      .greeting-text h1 {
         font-size: 24px;
         font-weight: 300;
-        margin: 0 0 4px 0;
-        letter-spacing: -0.5px;
-        line-height: 1.2;
-        
-        // Garantir que o texto não saia da tela
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        
-        @media (max-width: 480px) {
-          font-size: 20px;
-        }
-        
-        @media (max-width: 360px) {
-          font-size: 18px;
-        }
+        margin: 0;
       }
       
-      h2 {
-        font-size: 20px;
-        font-weight: 600;
-        margin: 0;
-        opacity: 0.9;
-        line-height: 1.2;
-        
-        // Garantir que o texto não saia da tela
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        
-        @media (max-width: 480px) {
-          font-size: 18px;
-        }
-        
-        @media (max-width: 360px) {
-          font-size: 16px;
+      .user-avatar {
+        .clickable-avatar {
+          width: 50px;
+          height: 50px;
+          border: 3px solid rgba(255, 255, 255, 0.3);
         }
       }
     }
     
-    .user-avatar {
-      cursor: pointer;
-      transition: transform 0.2s ease;
-      
-      &:hover {
-        transform: scale(1.05);
-      }
-      
-      .clickable-avatar {
-        width: 50px;
-        height: 50px;
-        border: 3px solid rgba(255, 255, 255, 0.3);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        transition: all 0.2s ease;
-        
-        &:hover {
-          border-color: rgba(255, 255, 255, 0.6);
-          box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-        }
-      }
+    .header-subtitle {
+      font-size: 16px;
+      opacity: 0.8;
+      margin: 0;
     }
-  }
-  
-  .header-subtitle {
-    font-size: 16px;
-    opacity: 0.8;
-    margin: 0;
-    font-weight: 300;
   }
 }
 
-// Container dos Cards de Saldo
+// Cards de saldo
 .balance-cards-container {
   margin: -30px 16px 0;
-  position: relative;
-  z-index: 10;
   
   .main-balance-card {
     background: white;
     border-radius: 16px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
     margin-bottom: 16px;
-    border: none;
     
     .balance-header {
       display: flex;
@@ -208,7 +79,6 @@
           font-size: 14px;
           color: var(--ion-color-medium);
           margin: 0 0 4px 0;
-          font-weight: 500;
         }
         
         .balance-amount {
@@ -216,7 +86,6 @@
           font-weight: 700;
           margin: 0;
           color: var(--ion-color-dark);
-          letter-spacing: -1px;
         }
       }
     }
@@ -248,12 +117,6 @@
   .mini-cards-row {
     display: flex;
     gap: 12px;
-    margin-bottom: 0;
-    
-    @media (max-width: 480px) {
-      flex-direction: column;
-      gap: 8px;
-    }
     
     .mini-card {
       flex: 1;
@@ -269,11 +132,6 @@
           font-size: 13px;
           font-weight: 500;
           color: var(--ion-color-medium);
-          line-height: 1.3;
-          
-          @media (max-width: 480px) {
-            font-size: 12px;
-          }
         }
       }
       
@@ -281,1013 +139,200 @@
         font-size: 16px;
         font-weight: 600;
         color: var(--ion-color-dark);
-        
-        @media (max-width: 480px) {
-          font-size: 14px;
-        }
+      }
+      
+      .card-subtitle {
+        font-size: 11px;
+        color: var(--ion-color-medium);
+        margin-top: 4px;
       }
     }
   }
 }
 
-// Card de Despesas
-.modern-expenses-card {
+// Seções do conteúdo
+.section-container {
   margin: 16px;
   background: white;
   border-radius: 16px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-  border: none;
+  padding: 20px;
   
-  .card-header {
-    margin-bottom: 24px;
-    
-    .header-info {
-      h3 {
-        font-size: 18px;
-        font-weight: 600;
-        color: var(--ion-color-dark);
-        margin: 0 0 12px 0;
-      }
-      
-      .amount-container {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        
-        .expenses-amount {
-          font-size: 28px;
-          font-weight: 700;
-          color: var(--ion-color-danger);
-          margin: 0;
-        }
-        
-        .trend-indicator {
-          display: flex;
-          align-items: center;
-          padding: 4px 8px;
-          border-radius: 12px;
-          font-size: 12px;
-          font-weight: 600;
-          
-          &.positive {
-            background: rgba(42, 183, 79, 0.1);
-            color: var(--ion-color-success);
-          }
-          
-          ion-icon {
-            font-size: 14px;
-            margin-right: 4px;
-          }
-        }
-      }
-    }
-  }
-  
-  .expense-categories {
-    .category-item {
-      margin-bottom: 20px;
-      
-      &:last-child {
-        margin-bottom: 0;
-      }
-      
-      .category-header {
-        display: flex;
-        align-items: center;
-        margin-bottom: 8px;
-        
-        .category-icon {
-          width: 40px;
-          height: 40px;
-          border-radius: 12px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin-right: 12px;
-          
-          &.housing {
-            background: rgba(255, 152, 0, 0.1);
-            color: #ff9800;
-          }
-          
-          &.food {
-            background: rgba(76, 175, 80, 0.1);
-            color: #4caf50;
-          }
-          
-          &.transport {
-            background: rgba(33, 150, 243, 0.1);
-            color: #2196f3;
-          }
-          
-          ion-icon {
-            font-size: 20px;
-          }
-        }
-        
-        .category-info {
-          flex: 1;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          
-          .category-name {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--ion-color-dark);
-          }
-          
-          .category-amount {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--ion-color-medium);
-          }
-        }
-      }
-      
-      .progress-bar {
-        height: 6px;
-        background: #f0f0f0;
-        border-radius: 3px;
-        overflow: hidden;
-        
-        .progress-fill {
-          height: 100%;
-          border-radius: 3px;
-          transition: width 0.3s ease;
-          
-          &.housing-progress {
-            background: linear-gradient(90deg, #ff9800, #ff6f00);
-          }
-          
-          &.food-progress {
-            background: linear-gradient(90deg, #4caf50, #2e7d32);
-          }
-          
-          &.transport-progress {
-            background: linear-gradient(90deg, #2196f3, #1565c0);
-          }
-        }
-      }
-    }
-  }
-}
-
-// Card de Meta de Poupança Moderno
-.savings-goal-card {
-  margin: 16px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border-radius: 20px;
-  box-shadow: 0 12px 40px rgba(102, 126, 234, 0.3);
-  border: none;
-  overflow: hidden;
-  position: relative;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-    animation: shimmer 4s infinite;
-  }
-  
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(45deg, 
-      transparent 30%, 
-      rgba(255, 255, 255, 0.05) 50%, 
-      transparent 70%);
-    pointer-events: none;
-  }
-  
-  @keyframes shimmer {
-    0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
-    50% { transform: translate(-50%, -50%) rotate(180deg); }
-  }
-  
-  .savings-header {
+  .section-header {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    margin-bottom: 24px;
-    position: relative;
-    z-index: 2;
-    
-    .savings-icon {
-      width: 50px;
-      height: 50px;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      transition: all 0.3s ease;
-      
-      &:hover {
-        transform: scale(1.05);
-        background: rgba(255, 255, 255, 0.3);
-      }
-      
-      ion-icon {
-        font-size: 24px;
-        color: white;
-        filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
-      }
-    }
-    
-    .savings-title {
-      flex: 1;
-      margin-left: 16px;
-      
-      h3 {
-        font-size: 18px;
-        font-weight: 600;
-        margin: 0 0 4px 0;
-        color: white;
-        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-      }
-      
-      .savings-subtitle {
-        font-size: 14px;
-        margin: 0;
-        opacity: 0.8;
-        color: rgba(255, 255, 255, 0.9);
-      }
-    }
-    
-    .savings-menu {
-      .menu-btn {
-        --color: rgba(255, 255, 255, 0.8);
-        --background: transparent;
-        --box-shadow: none;
-        --border-width: 0;
-        
-        &:hover {
-          --color: white;
-          --background: rgba(255, 255, 255, 0.1);
-        }
-      }
-    }
-  }
-  
-  .savings-progress-section {
-    position: relative;
-    z-index: 2;
-    
-    .savings-amounts {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 24px;
-      
-      .current-amount,
-      .target-amount {
-        text-align: center;
-        padding: 12px;
-        border-radius: 12px;
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(5px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        flex: 1;
-        margin: 0 4px;
-        
-        .amount-value {
-          display: block;
-          font-size: 24px;
-          font-weight: 700;
-          color: white;
-          margin-bottom: 4px;
-          text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-        
-        .amount-label {
-          font-size: 12px;
-          color: rgba(255, 255, 255, 0.8);
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-          font-weight: 500;
-        }
-      }
-      
-      .current-amount {
-        .amount-value {
-          color: #4ecdc4;
-        }
-      }
-      
-      .target-amount {
-        .amount-value {
-          color: #ffe66d;
-        }
-      }
-    }
-    
-    .progress-container {
-      margin-bottom: 24px;
-      
-      .progress-bar-modern {
-        margin-bottom: 16px;
-        
-        .progress-track {
-          position: relative;
-          height: 10px;
-          background: rgba(255, 255, 255, 0.2);
-          border-radius: 10px;
-          overflow: hidden;
-          box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-          
-          .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #4ecdc4 0%, #44a08d 100%);
-            border-radius: 10px;
-            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            
-            &::after {
-              content: '';
-              position: absolute;
-              top: 0;
-              left: 0;
-              right: 0;
-              bottom: 0;
-              background: linear-gradient(90deg, 
-                transparent 0%, 
-                rgba(255, 255, 255, 0.4) 50%, 
-                transparent 100%);
-              animation: progressShine 2s infinite;
-            }
-          }
-          
-          .progress-dot {
-            position: absolute;
-            top: 50%;
-            width: 18px;
-            height: 18px;
-            background: white;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-            border: 3px solid #4ecdc4;
-            transition: left 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 1;
-            
-            &::before {
-              content: '';
-              position: absolute;
-              top: 50%;
-              left: 50%;
-              width: 6px;
-              height: 6px;
-              background: #4ecdc4;
-              border-radius: 50%;
-              transform: translate(-50%, -50%);
-            }
-          }
-        }
-      }
-      
-      .progress-percentage {
-        text-align: center;
-        
-        .percentage-text {
-          font-size: 36px;
-          font-weight: 700;
-          color: white;
-          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-          margin-bottom: 4px;
-          display: block;
-          background: linear-gradient(45deg, #4ecdc4, #ffe66d);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-        }
-        
-        .percentage-label {
-          font-size: 14px;
-          color: rgba(255, 255, 255, 0.8);
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-          font-weight: 500;
-        }
-      }
-    }
-    
-    .savings-actions {
-      display: flex;
-      gap: 12px;
-      
-      .add-funds-btn {
-        flex: 1;
-        --background: rgba(255, 255, 255, 0.9);
-        --color: #667eea;
-        --border-radius: 12px;
-        --padding-top: 12px;
-        --padding-bottom: 12px;
-        --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        font-weight: 600;
-        transition: all 0.3s ease;
-        
-        &:hover {
-          --background: white;
-          transform: translateY(-2px);
-          --box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-        }
-        
-        &:active {
-          transform: translateY(0);
-        }
-      }
-      
-      .view-goals-btn {
-        flex: 1;
-        --border-color: rgba(255, 255, 255, 0.5);
-        --color: white;
-        --border-radius: 12px;
-        --padding-top: 12px;
-        --padding-bottom: 12px;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        
-        &:hover {
-          --background: rgba(255, 255, 255, 0.1);
-          --border-color: white;
-          transform: translateY(-2px);
-        }
-        
-        &:active {
-          transform: translateY(0);
-        }
-      }
-    }
-  }
-}
-
-@keyframes progressShine {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-.transactions-card {
-  margin: 16px;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-  border: none;
-  
-  h3 {
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--ion-color-dark);
-    margin: 0 0 20px 0;
-  }
-  
-  .transaction-list {
-    .transaction-item {
-      display: flex;
-      align-items: center;
-      padding: 12px 0;
-      border-bottom: 1px solid #f0f0f0;
-      
-      &:last-child {
-        border-bottom: none;
-      }
-      
-      .transaction-icon {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background: #f8f9fa;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 12px;
-        flex-shrink: 0;
-        
-        ion-icon {
-          font-size: 18px;
-          color: var(--ion-color-medium);
-        }
-      }
-      
-      .transaction-details {
-        flex: 1;
-        min-width: 0;
-        
-        .transaction-name {
-          display: block;
-          font-size: 14px;
-          font-weight: 500;
-          color: var(--ion-color-dark);
-          margin-bottom: 2px;
-          
-          // Garantir que o texto não saia da tela
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-        }
-        
-        .transaction-date {
-          display: block;
-          font-size: 12px;
-          color: var(--ion-color-medium);
-        }
-      }
-      
-      .transaction-amount {
-        font-size: 14px;
-        font-weight: 600;
-        margin-left: 8px;
-        flex-shrink: 0;
-        
-        &.positive {
-          color: var(--ion-color-success);
-        }
-        
-        &.negative {
-          color: var(--ion-color-danger);
-        }
-      }
-    }
-  }
-}
-
-// Formulário de Adicionar Transação
-.add-transaction-card {
-  margin: 16px;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-  border: none;
-  
-  .add-transaction-header {
-    display: flex;
-    flex-direction: column;
+    align-items: center;
     margin-bottom: 20px;
     
     h3 {
       font-size: 18px;
       font-weight: 600;
       color: var(--ion-color-dark);
-      margin: 0 0 8px 0;
-    }
-    
-    .subtitle {
-      font-size: 14px;
-      color: var(--ion-color-medium);
       margin: 0;
-      font-style: italic;
     }
-  }
-  
-  .transaction-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 20px;
     
-    .transaction-btn {
-      --border-radius: 12px;
-      --padding-top: 16px;
-      --padding-bottom: 16px;
+    p {
       font-size: 16px;
       font-weight: 600;
-      --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      transition: all 0.3s ease;
-      
-      ion-icon {
-        font-size: 20px;
-        margin-right: 8px;
-      }
-    }
-    
-    // Customização para botão de entrada (success-tint)
-    .entrada-btn {
-      --background: #2dd36f !important;
-      --background-activated: #24b561 !important;
-      --background-focused: #24b561 !important;
-      --background-hover: #24b561 !important;
-      --color: white !important;
-      --box-shadow: 0 4px 12px rgba(45, 211, 111, 0.3) !important;
-      
-      &:hover {
-        --background: #24b561 !important;
-        transform: translateY(-2px);
-        --box-shadow: 0 6px 16px rgba(45, 211, 111, 0.4) !important;
-      }
-    }
-    
-    // Customização para botão de saída (danger-tint)
-    .saida-btn {
-      --background: #eb445a !important;
-      --background-activated: #d33852 !important;
-      --background-focused: #d33852 !important;
-      --background-hover: #d33852 !important;
-      --color: white !important;
-      --box-shadow: 0 4px 12px rgba(235, 68, 90, 0.3) !important;
-      
-      &:hover {
-        --background: #d33852 !important;
-        transform: translateY(-2px);
-        --box-shadow: 0 6px 16px rgba(235, 68, 90, 0.4) !important;
-      }
-    }
-  }
-  
-  .add-transaction-form {
-    background: #f8f9fa;
-    border-radius: 16px;
-    padding: 20px;
-    margin-top: 16px;
-    
-    .form-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      
-      h4 {
-        font-size: 18px;
-        font-weight: 600;
-        color: var(--ion-color-dark);
-        margin: 0;
-        flex: 1;
-      }
-      
-      ion-button {
-        --padding-start: 8px;
-        --padding-end: 8px;
-        --color: var(--ion-color-medium);
-        flex-shrink: 0;
-      }
-    }
-    
-    // Melhorar layout dos campos do formulário
-    ion-item {
-      --background: white;
-      --border-radius: 12px;
-      --border-color: #e0e0e0;
-      --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-      margin-bottom: 16px;
-      
-      ion-label {
-        --color: var(--ion-color-dark);
-        font-weight: 500;
-        font-size: 14px;
-      }
-      
-      ion-input, ion-select {
-        --color: var(--ion-color-dark);
-        --placeholder-color: var(--ion-color-medium);
-        font-size: 16px;
-        
-        @media (max-width: 480px) {
-          font-size: 14px;
-        }
-      }
-    }
-    
-    // Botões do formulário
-    .form-buttons {
-      display: flex;
-      gap: 12px;
-      margin-top: 24px;
-      
-      @media (max-width: 480px) {
-        flex-direction: column;
-        gap: 8px;
-      }
-      
-      ion-button {
-        --border-radius: 12px;
-        --padding-top: 14px;
-        --padding-bottom: 14px;
-        font-size: 16px;
-        font-weight: 500;
-        flex: 1;
-        
-        @media (max-width: 480px) {
-          font-size: 14px;
-        }
-        
-        &:first-child {
-          --color: var(--ion-color-medium);
-          --border-color: var(--ion-color-medium);
-        }
-        
-        &:last-child {
-          --background: var(--ion-color-primary);
-          --color: white;
-        }
-      }
-    }
-  }
-  
-  .add-transaction-form {
-    background: #f8f9fa;
-    border-radius: 16px;
-    padding: 20px;
-    margin-top: 16px;
-    
-    .form-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      
-      h4 {
-        font-size: 18px;
-        font-weight: 600;
-        color: var(--ion-color-dark);
-        margin: 0;
-        flex: 1;
-      }
-      
-      ion-button {
-        --padding-start: 8px;
-        --padding-end: 8px;
-        --color: var(--ion-color-medium);
-        flex-shrink: 0;
-      }
-    }
-    
-    ion-item {
-      --padding-start: 0;
-      --inner-padding-end: 0;
-      --inner-padding-start: 0;
-      --border-width: 0;
-      --background: transparent;
-      margin-bottom: 16px;
-      
-      ion-label {
-        font-size: 14px;
-        font-weight: 500;
-        color: var(--ion-color-dark);
-      }
-      
-      ion-input, ion-select {
-        --background: white;
-        --border-radius: 12px;
-        --padding-start: 16px;
-        --padding-end: 16px;
-        --padding-top: 12px;
-        --padding-bottom: 12px;
-        font-size: 14px;
-        margin-top: 8px;
-        border: 1px solid #e0e0e0;
-      }
-    }
-    
-    .form-buttons {
-      display: flex;
-      gap: 12px;
-      margin-top: 24px;
-      
-      ion-button {
-        flex: 1;
-        --border-radius: 12px;
-        --padding-top: 12px;
-        --padding-bottom: 12px;
-        font-size: 14px;
-        font-weight: 600;
-        
-        &[fill="outline"] {
-          --border-color: #e0e0e0;
-          --color: var(--ion-color-medium);
-        }
-      }
+      color: var(--ion-color-medium);
+      margin: 0;
     }
   }
 }
 
-// Menu Inferior Fixo
-.fixed-bottom-menu {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: white;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 12px 8px;
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
-  border-top: 1px solid #e0e0e0;
-  z-index: 99999;
-  min-height: 80px;
-  
-  .menu-item {
+// Categorias de gastos
+.expense-categories {
+  .category-item {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    padding: 8px 4px;
-    min-height: 60px;
+    margin-bottom: 16px;
     
-    span {
-      font-size: 11px;
-      margin-top: 4px;
-      text-align: center;
-      line-height: 1.2;
-      
-      @media (max-width: 480px) {
-        font-size: 10px;
-      }
+    &:last-child {
+      margin-bottom: 0;
     }
     
-    ion-icon {
-      font-size: 22px;
-      margin-bottom: 2px;
-      
-      @media (max-width: 480px) {
-        font-size: 20px;
-      }
-    }
-  }
-}
-
-// Espaçamento para o menu inferior
-.bottom-spacing {
-  height: 100px;
-}
-
-// Menu Lateral do Usuário
-.user-menu-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 100000;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(4px);
-  
-  &.active {
-    opacity: 1;
-    visibility: visible;
-  }
-  
-  .user-menu-panel {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 320px;
-    max-width: 85vw;
-    height: 100%;
-    background: white;
-    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
-    transform: translateX(100%);
-    transition: transform 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    
-    .user-menu-header {
-      background: linear-gradient(135deg, var(--ion-color-primary) 0%, var(--ion-color-secondary) 100%);
-      padding: 60px 20px 30px;
-      color: white;
+    .category-info {
       display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
+      align-items: center;
+      gap: 12px;
       
-      .user-info {
-        display: flex;
-        align-items: center;
-        flex: 1;
-        
-        .menu-avatar {
-          width: 60px;
-          height: 60px;
-          margin-right: 16px;
-          border: 3px solid rgba(255, 255, 255, 0.3);
-        }
-        
-        .user-details {
-          h3 {
-            font-size: 20px;
-            font-weight: 600;
-            margin: 0 0 4px 0;
-            color: white;
-          }
-          
-          p {
-            font-size: 14px;
-            margin: 0;
-            opacity: 0.8;
-            color: white;
-          }
-        }
+      .category-icon {
+        font-size: 20px;
+        color: var(--ion-color-primary);
       }
       
-      .close-btn {
-        --color: white;
-        --background: transparent;
-        --box-shadow: none;
-        margin: 0;
-        padding: 8px;
-        
-        ion-icon {
-          font-size: 24px;
-        }
+      .category-name {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--ion-color-dark);
       }
     }
     
-    .user-menu-options {
+    .category-amount {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ion-color-medium);
+    }
+  }
+}
+
+// Transações recentes
+.recent-transactions {
+  .transaction-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+    
+    &:last-child {
+      border-bottom: none;
+    }
+    
+    .transaction-info {
+      display: flex;
+      align-items: center;
       flex: 1;
-      padding: 20px 0;
       
-      .menu-option {
+      .transaction-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
         display: flex;
         align-items: center;
-        padding: 16px 20px;
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-        border-bottom: 1px solid #f0f0f0;
+        justify-content: center;
+        margin-right: 12px;
         
-        &:hover {
-          background-color: #f8f9fa;
+        &.income {
+          background: rgba(45, 211, 111, 0.1);
+          color: var(--ion-color-success);
         }
         
-        &.logout-option {
+        &.expense {
+          background: rgba(235, 68, 90, 0.1);
           color: var(--ion-color-danger);
-          border-top: 1px solid #f0f0f0;
-          margin-top: 10px;
-          
-          ion-icon {
-            color: var(--ion-color-danger);
-          }
         }
-        
-        ion-icon:first-child {
-          font-size: 22px;
-          margin-right: 16px;
-          color: var(--ion-color-medium);
-          min-width: 22px;
-        }
-        
-        span {
-          flex: 1;
-          font-size: 16px;
+      }
+      
+      .transaction-details {
+        h4 {
+          font-size: 14px;
           font-weight: 500;
+          margin: 0 0 2px 0;
           color: var(--ion-color-dark);
         }
         
-        .option-arrow {
-          font-size: 18px;
-          color: var(--ion-color-light-shade);
+        p {
+          font-size: 12px;
+          color: var(--ion-color-medium);
+          margin: 0;
         }
       }
+    }
+    
+    .transaction-amount {
+      font-size: 14px;
+      font-weight: 600;
       
-      .menu-divider {
-        height: 1px;
-        background: #e0e0e0;
-        margin: 10px 20px;
+      &.income {
+        color: var(--ion-color-success);
+      }
+      
+      &.expense {
+        color: var(--ion-color-danger);
       }
     }
-  }
-  
-  &.active .user-menu-panel {
-    transform: translateX(0);
   }
 }
 
-// Responsividade para o menu lateral
-@media (max-width: 480px) {
-  .user-menu-overlay .user-menu-panel {
-    width: 300px;
-    
-    .user-menu-header {
-      padding: 50px 16px 25px;
-      
-      .user-info .menu-avatar {
-        width: 50px;
-        height: 50px;
-        margin-right: 12px;
-      }
-      
-      .user-info .user-details h3 {
-        font-size: 18px;
-      }
+// Estado vazio
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--ion-color-medium);
+  
+  ion-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+  }
+  
+  p {
+    font-size: 14px;
+    margin: 0;
+  }
+}
+
+// Meta de economia
+.savings-goal {
+  .goal-info {
+    p {
+      font-size: 14px;
+      color: var(--ion-color-medium);
+      margin: 0 0 12px 0;
     }
     
-    .user-menu-options .menu-option {
-      padding: 14px 16px;
+    .progress-bar {
+      height: 8px;
+      background: #f0f0f0;
+      border-radius: 4px;
+      overflow: hidden;
       
-      span {
-        font-size: 15px;
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--ion-color-primary), var(--ion-color-secondary));
+        border-radius: 4px;
+        transition: width 0.3s ease;
       }
     }
+  }
+}
+
+// Formulário de transação
+.transaction-form {
+  padding: 20px;
+  
+  .form-actions {
+    margin-top: 20px;
   }
 }
 
@@ -1295,107 +340,23 @@
 @media (max-width: 480px) {
   .modern-header {
     padding: 40px 16px 30px;
+    
+    .user-greeting .greeting-text h1 {
+      font-size: 20px;
+    }
   }
   
   .balance-cards-container {
     margin: -20px 12px 0;
     
     .mini-cards-row {
-      gap: 8px;
-      
-      .mini-card {
-        .card-background {
-          padding: 16px;
-          height: 100px;
-          
-          .card-icon {
-            width: 32px;
-            height: 32px;
-            top: 12px;
-            right: 12px;
-            
-            ion-icon {
-              font-size: 16px;
-            }
-          }
-          
-          .card-content {
-            .card-label span {
-              font-size: 10px;
-            }
-            
-            .card-value {
-              .currency {
-                font-size: 10px;
-              }
-              
-              .amount {
-                font-size: 16px;
-              }
-            }
-          }
-          
-          .card-decoration {
-            width: 40px;
-            height: 40px;
-            bottom: -10px;
-            right: -10px;
-          }
-        }
-      }
-    }
-  }
-  
-  .modern-expenses-card,
-  .transactions-card,
-  .add-transaction-card,
-  .savings-goal-card {
-    margin: 12px;
-  }
-  
-  .savings-goal-card {
-    .savings-amounts {
-      .current-amount,
-      .target-amount {
-        .amount-value {
-          font-size: 20px;
-        }
-      }
-    }
-    
-    .progress-container {
-      .progress-percentage {
-        .percentage-text {
-          font-size: 28px;
-        }
-      }
-    }
-    
-    .savings-actions {
       flex-direction: column;
-      
-      .add-funds-btn,
-      .view-goals-btn {
-        width: 100%;
-      }
+      gap: 8px;
     }
   }
   
-  .fixed-bottom-menu {
-    padding: 8px 4px;
-    min-height: 70px;
-    
-    .menu-item {
-      padding: 6px 8px;
-      min-width: 50px;
-      
-      ion-icon {
-        font-size: 20px;
-      }
-      
-      span {
-        font-size: 9px;
-      }
-    }
+  .section-container {
+    margin: 12px;
+    padding: 16px;
   }
 }

@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
+  baseUrl: 'https://devcardoso.com/agrana',
   firebase: {
     apiKey: 'AIzaSyBKoDe1Ajt6jDX96WZKC4v-ZmXMw0aoWVs',
     authDomain: 'agrana-1e39a.firebaseapp.com',
