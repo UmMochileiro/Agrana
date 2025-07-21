@@ -1,0 +1,24 @@
+# Exemplo de Dockerfile para EasyPanel
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Copiar package files
+COPY package*.json ./
+
+# Instalar dependências (incluindo Angular CLI)
+RUN npm ci --only=production
+
+# Copiar código fonte
+COPY . .
+
+# Build da aplicação
+RUN npm run build:deploy
+
+# Servir arquivos estáticos
+FROM nginx:alpine
+COPY --from=0 /app/www /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/nginx.conf
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
