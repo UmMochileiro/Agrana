@@ -23,7 +23,6 @@
               "browser": ""
             },
             "index": "src/index.html",
-            "baseHref": "/agrana/",
             "polyfills": [
               "src/polyfills.ts"
             ],
