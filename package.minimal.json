@@ -2,10 +2,13 @@
   "name": "agrana",
   "version": "1.0.0",
   "scripts": {
-    "start": "serve -s www",
-    "serve": "serve -s www -p 4200"
+    "start": "serve -s www -p ${PORT:-4200} --cors --single",
+    "serve": "serve -s www"
   },
   "dependencies": {
-    "serve": "*"
+    "serve": "^14.2.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

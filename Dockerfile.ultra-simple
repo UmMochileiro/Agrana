@@ -1,17 +1,37 @@
 # Dockerfile ultra-simples para EasyPanel
 FROM nginx:alpine
 
-# Copia arquivos de build diretamente
+# Copia arquivos de build para servir na raiz e subpasta /agrana/
 COPY www /usr/share/nginx/html
+COPY www /usr/share/nginx/html/agrana
 
-# Configuração mínima do Nginx
+# Configuração do Nginx para servir tanto / quanto /agrana/
 RUN echo 'server { \
     listen 80; \
+    server_name _; \
+    root /usr/share/nginx/html; \
+    index index.html; \
+    \
+    # Serve arquivos na raiz \
     location / { \
-        root /usr/share/nginx/html; \
         try_files $uri $uri/ /index.html; \
-        add_header Cache-Control "no-cache"; \
+        add_header Cache-Control "no-cache, no-store, must-revalidate"; \
+        add_header Pragma "no-cache"; \
+        add_header Expires "0"; \
     } \
+    \
+    # Serve arquivos em /agrana/ \
+    location /agrana/ { \
+        try_files $uri $uri/ /agrana/index.html; \
+        add_header Cache-Control "no-cache, no-store, must-revalidate"; \
+        add_header Pragma "no-cache"; \
+        add_header Expires "0"; \
+    } \
+    \
+    # Headers CORS \
+    add_header Access-Control-Allow-Origin "*" always; \
+    add_header Access-Control-Allow-Methods "GET, POST, OPTIONS" always; \
+    add_header Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept" always; \
 }' > /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
