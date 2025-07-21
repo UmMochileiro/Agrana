@@ -3,8 +3,7 @@
 ## Build Commands (Execute em ordem):
 ```bash
 # 1. Install dependencies with serve
-npm ci
-npm install serve
+npm install
 
 # 2. Build application
 npm run build:deploy
