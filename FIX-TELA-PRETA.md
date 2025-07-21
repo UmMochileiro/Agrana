@@ -23,14 +23,28 @@ Acesse: `http://localhost:4200/agrana/`
 
 ## 🚀 **PARA VPS/EASYPANEL:**
 
-A configuração no `EASYPANEL-VPS-FINAL.md` continua válida:
-
-### Start Command:
-```bash
-npx serve -s www -l 4200 --cors --single
+### 🔧 **OPÇÃO 1 - Docker Nginx (RECOMENDADO):**
+```dockerfile
+# Use Dockerfile.simple
+FROM nginx:alpine
+COPY www/ /usr/share/nginx/html/agrana/
+COPY nginx-simple.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
 ```
+**Port:** `80`
 
-### URLs na VPS:
+### 🔧 **OPÇÃO 2 - Node.js Serve:**
+```bash
+npm install -g serve && serve -s www -p 4200 --cors --single
+```
+**Port:** `4200`
+
+### 🔧 **OPÇÃO 3 - Static Files:**
+**Build Command:** `npm run build:deploy`
+**Start Command:** `serve -s www`
+**Port:** `3000`
+
+### URLs esperadas:
 - `https://agrana-agrana.bkbl3w.easypanel.host/agrana/`
 - `https://devcardoso.com/agrana/`
 

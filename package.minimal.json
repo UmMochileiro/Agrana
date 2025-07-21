@@ -1,0 +1,11 @@
+{
+  "name": "agrana",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "serve -s www",
+    "serve": "serve -s www -p 4200"
+  },
+  "dependencies": {
+    "serve": "*"
+  }
+}
