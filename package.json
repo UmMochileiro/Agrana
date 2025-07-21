@@ -5,13 +5,17 @@
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "ng": "npx ng",
-    "start": "npx ng serve --host 0.0.0.0 --port 4200",
+    "start": "npm run serve:prod",
+    "serve:dev": "npx ng serve --host 0.0.0.0 --port 4200",
+    "serve:prod": "npx serve -s www -l 4200 --cors",
     "build": "npx ng build",
     "build:prod": "npx ng build --configuration production",
-    "build:deploy": "npx ng build --configuration production --base-href=/agrana/",
+    "build:deploy": "npx ng build --configuration production --base-href=/agrana/ && npm run copy:htaccess",
+    "copy:htaccess": "cp .htaccess www/.htaccess 2>/dev/null || true",
     "watch": "npx ng build --watch --configuration development",
     "test": "npx ng test",
-    "lint": "npx ng lint"
+    "lint": "npx ng lint",
+    "postinstall": "npm install serve"
   },
   "private": true,
   "dependencies": {
@@ -65,6 +69,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "serve": "^14.2.1",
     "typescript": "~5.8.0"
   },
   "description": "An Ionic project"
