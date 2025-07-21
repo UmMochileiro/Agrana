@@ -1,5 +1,27 @@
 # EasyPanel Configuration
 
+## ⚡ Opção 1: Simple Build (Recomendado)
+
+### Build Commands:
+```bash
+npm install
+npm run build:deploy
+```
+
+### Start Command:
+```bash
+npx serve -s www -l 4200 --cors
+```
+
+## 🐳 Opção 2: Docker Build
+
+Use o `Dockerfile` criado:
+```bash
+# EasyPanel irá usar automaticamente
+docker build -t agrana .
+docker run -p 4200:4200 agrana
+```
+
 ## Build Commands (Execute em ordem):
 ```bash
 # 1. Install dependencies with serve
