@@ -1,6 +1,30 @@
-# EasyPanel Configuration
+# EasyPanel Configuration - TROUBLESHOOTING
 
-## ⚡ Opção 1: Simple Build (Recomendado)
+## 🚨 Service Not Reachable - Soluções:
+
+### 🔧 Opção 1: Porta Configuração
+```bash
+# Start Command (tente diferentes portas):
+npx serve -s www -l 80 --cors
+# OU
+npx serve -s www -l 3000 --cors
+# OU
+npx serve -s www -l 8080 --cors
+```
+
+### 🔧 Opção 2: Host Binding
+```bash
+# Start Command com host específico:
+npx serve -s www -l 4200 --cors --host 0.0.0.0
+```
+
+### 🔧 Opção 3: Health Check
+```bash
+# Adicione health check script no package.json
+"health": "curl http://localhost:4200 || echo 'Service down'"
+```
+
+## ⚡ Configuração Corrigida:
 
 ### Build Commands:
 ```bash

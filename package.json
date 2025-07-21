@@ -5,9 +5,11 @@
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "ng": "npx ng",
-    "start": "npm run serve:prod",
+    "start": "npx serve -s www -l 4200 --cors --host 0.0.0.0",
     "serve:dev": "npx ng serve --host 0.0.0.0 --port 4200",
-    "serve:prod": "npx serve -s www -l 4200 --cors",
+    "serve:prod": "npx serve -s www -l 4200 --cors --host 0.0.0.0",
+    "serve:port80": "npx serve -s www -l 80 --cors --host 0.0.0.0",
+    "serve:port3000": "npx serve -s www -l 3000 --cors --host 0.0.0.0",
     "build": "npx ng build",
     "build:prod": "npx ng build --configuration production",
     "build:deploy": "npx ng build --configuration production --base-href=/agrana/ && npm run copy:htaccess",
@@ -15,7 +17,8 @@
     "watch": "npx ng build --watch --configuration development",
     "test": "npx ng test",
     "lint": "npx ng lint",
-    "postinstall": "npm install serve"
+    "postinstall": "npm install serve",
+    "health": "curl http://localhost:4200 || echo 'Service down'"
   },
   "private": true,
   "dependencies": {
